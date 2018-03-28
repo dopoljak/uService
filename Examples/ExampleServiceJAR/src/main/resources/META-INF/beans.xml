@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd"
+       bean-discovery-mode="all">
+
+    <scan>
+        <exclude name="org.**" />
+        <exclude name="com.google.**" />
+        <exclude name="com.fasterxml.**" />
+        <exclude name="com.mysema.**" />
+        <exclude name="com.arjuna.**" />
+        <exclude name="com.lmax.**" />
+        <exclude name="com.sun.**" />
+        <exclude name="com.infradna.**" />
+        <exclude name="com.arjuna.**" />
+        <exclude name="io.**" />
+        <exclude name="javax.**" />
+        <exclude name="java.**" />
+        <exclude name="net.**" />
+        <exclude name="javassist.**" />
+        <exclude name="net.**" />
+        <exclude name="antlr.**" />
+        <exclude name="io.**" />
+        <exclude name="mozilla.**" />
+        <exclude name="ch.**" />
+        <exclude name="android.**" />        
+    </scan>
+
+</beans>

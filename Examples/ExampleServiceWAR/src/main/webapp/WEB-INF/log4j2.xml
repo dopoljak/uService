@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn">
+
+    <Properties>
+        <Property name="folder">${env:JBOSS_HOME}</Property>
+        <Property name="fileName">ExampleWAR</Property>
+    </Properties>
+
+    <Appenders>
+        <RollingFile
+            name="RollingFile"
+            fileName="${folder}/standalone/log/${fileName}.log"
+            filePattern="${folder}/standalone/log/$${date:yyyy-MM}/${fileName}-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout>
+                <Pattern>[%X{CorrelationId}] %d %p %c{1.} %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+        </RollingFile>		
+    </Appenders>
+	
+    <Loggers>
+        <Root level="all">
+            <AppenderRef ref="RollingFile"/>
+        </Root>
+    </Loggers>
+	
+</Configuration>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn" name="App" packages="">
+
+    <Properties>
+        <Property name="folder">.</Property>
+        <Property name="fileName">Example</Property>
+    </Properties>
+
+    <Appenders>
+
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%X{CorrelationId}] %d %p %c{1.} %m%n"/>
+        </Console>
+
+        <RollingFile
+                name="RollingFile"
+                fileName="${folder}/${fileName}.log"
+                filePattern="${folder}/logs/$${date:yyyy-MM}/${fileName}-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout>
+                <Pattern>[%X{CorrelationId}] %d %p %c{1.} %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+        </RollingFile>
+    </Appenders>
+
+
+    <Loggers>
+
+        <Logger name="org.hibernate" level="info"/>
+        <!--Logger name="org.hibernate.SQL" level="info"/-->
+        <Logger name="org.jboss.resteasy" level="info"/>
+        <Logger name="org.jboss.weld" level="info"/>
+        <Logger name="io.swagger" level="info"/>
+        <Logger name="org.flywaydb" level="info"/>
+        <Logger name="org.reflections" level="info"/>
+        <Logger name="org.jnp" level="info"/>
+        <Logger name="org.xnio" level="info"/>
+        <Logger name="io.undertow" level="info"/>
+
+        <Root level="debug">
+            <AppenderRef ref="RollingFile" />
+            <AppenderRef ref="Console" />
+        </Root>
+    </Loggers>
+
+
+</Configuration>
