@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import java.util.Date;
 
 @Entity
-@Table(name = "\"schema_version\"")
+@Table(name = "\"flyway_schema_history\"")
 public class SchemaVersion implements java.io.Serializable {
 
     private String version;

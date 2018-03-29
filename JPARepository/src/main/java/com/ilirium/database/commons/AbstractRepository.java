@@ -15,13 +15,13 @@ import java.util.List;
 public abstract class AbstractRepository<E> {
 
     @Inject
-    protected EntityManager em;
+    protected EntityManager entityManager;
 
     public AbstractRepository() {
     }
 
     protected JPAQuery query() {
-        return new JPAQuery(em);
+        return new JPAQuery(entityManager);
     }
 
     @SuppressWarnings("unchecked")
@@ -31,19 +31,19 @@ public abstract class AbstractRepository<E> {
     }
 
     public E findById(Long id) {
-        return em.find(returnEntityClass(), id);
+        return entityManager.find(returnEntityClass(), id);
     }
 
     public void persist(E e) {
-        this.em.persist(e);
+        this.entityManager.persist(e);
     }
 
     public void remove(E e) {
-        this.em.remove(e);
+        this.entityManager.remove(e);
     }
 
     public E merge(E e) {
-        return this.em.merge(e);
+        return this.entityManager.merge(e);
     }
 
     public long countAll() {

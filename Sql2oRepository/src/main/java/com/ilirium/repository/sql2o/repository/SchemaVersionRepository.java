@@ -9,7 +9,7 @@ import com.ilirium.repository.sql2o.entity.SchemaVersion;
  */
 public class SchemaVersionRepository extends AbstractRepository<SchemaVersion> {
 
-    private static final String SELECT_ALL = "SELECT \"version\", \"installedRank\", \"description\", \"type\", \"script\", \"checksum\", \"installedBy\", \"installedOn\", \"executionTime\", \"success FROM \"schema_version\"";
+    private static final String SELECT_ALL = "SELECT \"version\", \"installedRank\", \"description\", \"type\", \"script\", \"checksum\", \"installedBy\", \"installedOn\", \"executionTime\", \"success FROM \"flyway_schema_history\"";
 
     @Override
     protected String selectAllQuery() {

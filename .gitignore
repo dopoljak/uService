@@ -24,3 +24,11 @@ h2_database\.trace\.db
 *.iml
 
 \.idea/
+
+Examples/HeavyExample/ExampleServiceWAR/target/
+
+Examples/HeavyExample/ExampleService/target/
+
+Examples/HeavyExample/ExampleDatabase/target/
+
+Flyway/target/

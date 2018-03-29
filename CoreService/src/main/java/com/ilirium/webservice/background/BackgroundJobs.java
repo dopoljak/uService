@@ -1,6 +1,6 @@
 package com.ilirium.webservice.background;
 
-import com.ilirium.database.commons.H2DatabaseBackup;
+import com.ilirium.webservice.commons.H2DatabaseBackup;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Destroyed;
@@ -8,6 +8,9 @@ import javax.enterprise.context.Initialized;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
+/**
+ *  !!!! work-in-progress - example !!!!
+ */
 /**
  * @author dpoljak
  */

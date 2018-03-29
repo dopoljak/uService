@@ -1,8 +1,9 @@
 package com.ilirium.webservice.commons;
 
+import com.ilirium.database.resources.RepositorySystemResource;
 import com.ilirium.webservice.exceptions.JaxRSExceptionProvider;
 import com.ilirium.webservice.filters.CORSFilter;
-import com.ilirium.webservice.resources.SystemResource;
+import com.ilirium.webservice.resources.CoreSystemResource;
 import io.swagger.jaxrs.config.BeanConfig;
 
 import javax.annotation.PostConstruct;
@@ -24,7 +25,8 @@ public abstract class JaxRsActivator extends Application {
     @Override
     public Set<Class<?>> getClasses() {
         Set<Class<?>> classes = new HashSet<>();
-        classes.add(SystemResource.class);
+        classes.add(CoreSystemResource.class);
+        classes.add(RepositorySystemResource.class);
         classes.add(CORSFilter.class);
         classes.add(ObjectMapperContextResolver.class);
         classes.add(JaxRSExceptionProvider.class);

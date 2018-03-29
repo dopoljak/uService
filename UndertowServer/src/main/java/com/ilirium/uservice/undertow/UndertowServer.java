@@ -1,17 +1,17 @@
 package com.ilirium.uservice.undertow;
 
+import com.ilirium.database.commons.FlywayMigrationInvoker;
+import com.ilirium.webservice.filters.LoggingFilter;
 import io.undertow.server.handlers.resource.ClassPathResourceManager;
 import org.jnp.server.NamingBeanImpl;
 import org.h2.jdbcx.JdbcDataSource;
 import com.arjuna.ats.jta.utils.JNDIManager;
-import com.ilirium.database.commons.DBMigrationInvoker;
-import com.ilirium.webservice.commons.BenchmarkHandler;
-import com.ilirium.webservice.filters.LoggingFilter;
 import io.undertow.Undertow;
 import io.undertow.servlet.Servlets;
 import io.undertow.servlet.api.DeploymentInfo;
 import org.jboss.resteasy.plugins.server.undertow.UndertowJaxrsServer;
 import org.jboss.resteasy.spi.ResteasyDeployment;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -22,8 +22,9 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.Response;
+import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 
-import static com.ilirium.webservice.commons.BenchmarkHandler.benchmark;
 
 /**
  * @author DoDo
@@ -38,7 +39,10 @@ public class UndertowServer {
         this.port = port;
     }
 
-    public static UndertowServer createStarted(final ClassLoader classLoader, Class<? extends Application> applicationClass, int port) throws Exception {
+    public static UndertowServer createStarted(final ClassLoader classLoader, Class<? extends Application> applicationClass, int port, String fullDatasourceName, boolean flywayMigrate) throws Exception {
+
+        final String resourceNameDatasource = "java:" + fullDatasourceName;
+
         final UndertowServer myServer = new UndertowServer(port);
 
         BenchmarkHandler.benchmark("Total server startup time", () -> {
@@ -48,12 +52,16 @@ public class UndertowServer {
             BenchmarkHandler.benchmark("JNDI/JTA", () -> {
                 myServer.createJndiServer();
                 myServer.createDataSource();
-                myServer.createDataSourceContext();
+                myServer.createDataSourceContext(resourceNameDatasource);
                 JNDIManager.bindJTAImplementation();
             });
-            BenchmarkHandler.benchmark("Flyway Migration", () -> {
-                myServer.migrate();
-            });
+
+            // TODO: refactor!
+            if (flywayMigrate) {
+                BenchmarkHandler.benchmark("Flyway Migration", () -> {
+                    myServer.migrate();
+                });
+            }
             BenchmarkHandler.benchmark("Start Listener", () -> {
                 myServer.startListener("0.0.0.0");
             });
@@ -114,12 +122,12 @@ public class UndertowServer {
         this.dataSource = ds;
     }
 
-    private void createDataSourceContext() throws NamingException {
+    private void createDataSourceContext(String datasourceName) throws NamingException {
         final Context context = new InitialContext();
         try {
             context.createSubcontext("java:jboss");
             context.createSubcontext("java:jboss/datasources");
-            context.bind(DBMigrationInvoker.JBOSS_FULL_DATASOURCE, dataSource);
+            context.bind(datasourceName, dataSource);
         } finally {
             context.close();
         }
@@ -141,12 +149,27 @@ public class UndertowServer {
         namingBean.start();
     }
 
+
     private void migrate() {
-        new DBMigrationInvoker().flywayMigrate(dataSource);
+        new FlywayMigrationInvoker().flywayMigrate(dataSource);
     }
 
     public void stop() {
         server.stop();
     }
 
+
+}
+
+class BenchmarkHandler {
+
+    public static void benchmark(String bechmarkType, Benchmarked benchmarked) throws Exception {
+        ZonedDateTime now = ZonedDateTime.now();
+        benchmarked.execute();
+        System.out.println("Time - " + bechmarkType + " : " + now.until(ZonedDateTime.now(), ChronoUnit.MILLIS) + "ms");
+    }
+
+    public interface Benchmarked {
+        public void execute() throws Exception;
+    }
 }

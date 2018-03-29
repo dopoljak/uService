@@ -5,7 +5,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>uService</groupId>
+    <groupId>com.iLirium.uService</groupId>
     <artifactId>uService</artifactId>
     <version>1.00-SNAPSHOT</version>
 
@@ -17,6 +17,7 @@
         <module>Firebase</module>
         <module>Sql2oRepository</module>
         <module>UndertowServer</module>
+        <module>Flyway</module>
     </modules>
 
     <name>uService</name>

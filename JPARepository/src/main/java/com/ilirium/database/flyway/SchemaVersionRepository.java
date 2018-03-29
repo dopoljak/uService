@@ -12,7 +12,7 @@ public class SchemaVersionRepository extends AbstractRepository<SchemaVersion> {
     }
 
     public List<SchemaVersion> getSchemaVersions() {
-        return em.createQuery("SELECT sc FROM SchemaVersion sc").getResultList();
+        return entityManager.createQuery("SELECT sc FROM SchemaVersion sc").getResultList();
     }
 
     @Override

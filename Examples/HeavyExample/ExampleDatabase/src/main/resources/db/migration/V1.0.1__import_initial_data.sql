@@ -1,0 +1,3 @@
+INSERT INTO ENDUSER("ID", "USERNAME", "PASSWORD") VALUES (1, 'dopoljak', 'pass');
+
+INSERT INTO DEVICE("ID", "NAME", "IDENDUSER" ) VALUES (1, 'device001', 1);

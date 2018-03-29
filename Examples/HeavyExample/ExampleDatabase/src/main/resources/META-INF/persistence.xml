@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence
+        version="2.1"
+        xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+
+    <persistence-unit name="AppPersistenceUnit" transaction-type="JTA">
+
+        <jta-data-source>jboss/datasources/AppDataSource</jta-data-source>
+
+        <class>com.example.demo.database.entities.EndUser</class>
+        <class>com.example.demo.database.entities.Device</class>
+        <class>com.ilirium.database.flyway.SchemaVersion</class>
+
+        <properties>
+            <property name="javax.persistence.schema-generation.database.action" value="none"/>
+        </properties>
+
+    </persistence-unit>
+
+</persistence>
