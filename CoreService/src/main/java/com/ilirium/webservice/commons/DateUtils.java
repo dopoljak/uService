@@ -1,7 +1,7 @@
 package com.ilirium.webservice.commons;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.*;
 import java.util.Date;
 
 public class DateUtils {
@@ -18,33 +18,26 @@ public class DateUtils {
 
     public static String formatElapsedMillis(long different) {
 
-        long secondsInMilli = 1000;
-        long minutesInMilli = secondsInMilli * 60;
-        long hoursInMilli = minutesInMilli * 60;
-        long daysInMilli = hoursInMilli * 24;
-
-        long elapsedDays = different / daysInMilli;
-        different = different % daysInMilli;
-
-        long elapsedHours = different / hoursInMilli;
-        different = different % hoursInMilli;
-
-        long elapsedMinutes = different / minutesInMilli;
-        different = different % minutesInMilli;
-
-        long elapsedSeconds = different / secondsInMilli;
-
+        Duration duration = Duration.ofMillis(different);
         String elapsedTimeFormated = String.format(
                 "%d days, %d hours, %d minutes, %d seconds",
-                elapsedDays, elapsedHours, elapsedMinutes, elapsedSeconds);
+                duration.toDays(),
+                duration.minusDays(duration.toDays()).toHours(),
+                duration.minusHours(duration.toHours()).toMinutes(),
+                duration.minusMinutes(duration.toMinutes()).getSeconds());
         return elapsedTimeFormated;
     }
 
-    public static Date getTodayWithMidnightTime() {
-        Calendar today = Calendar.getInstance();
-        today.set(Calendar.HOUR_OF_DAY, 0);
-        today.set(Calendar.MINUTE, 0);
-        today.set(Calendar.SECOND, 0);
-        return today.getTime();
+    public Date getTodayWithMidnightTime() {
+        return toDate(LocalDateTime.of(LocalDate.now(), LocalTime.MIDNIGHT));
     }
+
+    public Date toDate(LocalDateTime localDateTime) {
+        return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+    }
+
+    public Date toDate(LocalDate localDate) {
+        return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+    }
+
 }

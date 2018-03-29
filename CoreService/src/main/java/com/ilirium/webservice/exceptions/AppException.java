@@ -1,36 +1,61 @@
 package com.ilirium.webservice.exceptions;
 
-public class AppException extends RuntimeException {
+import javax.ws.rs.core.Response;
 
-    private IExceptionEnum exceptionEnum;
-    private String httpMessage;
-    private String details;
+public class AppException extends RuntimeException implements InternalException {
 
-    public AppException( IExceptionEnum exceptionEnum) {
-        this.exceptionEnum = exceptionEnum;
+    private Integer code;
+    private String message;
+    private String description;
+
+    public AppException(Integer code, String message, String description) {
+        this.code = code;
+        this.message = message;
+        this.description = description;
     }
 
-    public AppException(  IExceptionEnum exceptionEnum, String details) {
-        this.exceptionEnum = exceptionEnum;
-        this.details = details;
+    public AppException(Throwable cause) {
+        this.code = Response.Status.INTERNAL_SERVER_ERROR.getStatusCode();
+        this.message = cause.getMessage();
     }
 
-
-    public String getDetails() {
-        return details;
+    public Integer getCode() {
+        return code;
     }
 
-    public String getHttpMessage() {
-        return httpMessage;
+    public void setCode(Integer code) {
+        this.code = code;
     }
 
-    public void setHttpMessage(String httpMessage) {
-        this.httpMessage = httpMessage;
+    @Override
+    public String getMessage() {
+        return message;
     }
 
-    public IExceptionEnum getExceptionEnum() {
-        return exceptionEnum;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
+    @Override
+    public String getDescription() {
+        return description;
+    }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Override
+    public Integer getHttpStatusCode() {
+        return getCode();
+    }
+
+    @Override
+    public String toString() {
+        return "AppException{" +
+                "code=" + code +
+                ", message='" + message + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

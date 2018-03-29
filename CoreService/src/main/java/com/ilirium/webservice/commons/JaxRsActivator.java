@@ -1,7 +1,6 @@
 package com.ilirium.webservice.commons;
 
 import com.ilirium.database.resources.RepositorySystemResource;
-import com.ilirium.webservice.exceptions.JaxRSExceptionProvider;
 import com.ilirium.webservice.filters.CORSFilter;
 import com.ilirium.webservice.resources.CoreSystemResource;
 import io.swagger.jaxrs.config.BeanConfig;

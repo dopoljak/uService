@@ -1,24 +1,20 @@
 package com.ilirium.uService.exampleservicejar.resource;
 
-import com.example.demo.client.dto.EndUserDTO;
-import com.example.demo.client.dto.WrapperDTO;
-import com.example.demo.database.entities.EndUser;
-import com.example.demo.database.repositories.EndUserRepository;
-import com.ilirium.database.commons.AbstractDO;
-import com.ilirium.database.commons.PageRequest;
-import com.ilirium.uService.exampleservicejar.mappers.EndUserMapper;
-import com.ilirium.webservice.exceptions.AppException;
-import com.ilirium.webservice.exceptions.CommonException;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import com.example.demo.client.dto.*;
+import com.example.demo.database.entities.*;
+import com.example.demo.database.repositories.*;
+import com.ilirium.database.commons.*;
+import com.ilirium.uService.exampleservicejar.mappers.*;
+import com.ilirium.webservice.exceptions.*;
+import io.swagger.annotations.*;
 
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
-import javax.transaction.Transactional;
+import javax.enterprise.context.*;
+import javax.enterprise.event.*;
+import javax.inject.*;
+import javax.transaction.*;
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import java.util.Collection;
+import javax.ws.rs.core.*;
+import java.util.*;
 
 
 /**
