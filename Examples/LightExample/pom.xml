@@ -13,9 +13,10 @@
     <packaging>pom</packaging>
     <artifactId>LightExample</artifactId>
 
-	
+
     <modules>
         <module>ExampleLightService</module>
+        <module>ExampleLightDatabase</module>
     </modules>
-	
+
 </project>

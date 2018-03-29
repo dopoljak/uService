@@ -22,6 +22,12 @@
             <version>${project.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.iLirium.uService</groupId>
+            <artifactId>ExampleLightDatabase</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
 
 
     </dependencies>

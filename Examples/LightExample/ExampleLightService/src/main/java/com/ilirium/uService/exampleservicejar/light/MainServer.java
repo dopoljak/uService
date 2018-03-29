@@ -1,19 +1,39 @@
 package com.ilirium.uService.exampleservicejar.light;
 
-import com.ilirium.uservice.undertow.UndertowServer;
-import com.ilirium.uservice.undertowserver.commons.DatabaseConfig;
+import com.ilirium.uService.exampleservicejar.light.resources.EndUserResource;
+import com.ilirium.uService.exampleservicejar.light.resources.NowResource;
+import com.ilirium.uService.exampleservicejar.light.resources.SystemResource;
+import com.ilirium.uservice.undertow.voidpack.UndertowServer;
+import com.ilirium.uservice.undertowserver.commons.Config;
+import io.undertow.Handlers;
+import io.undertow.server.handlers.PathHandler;
+import io.undertow.server.handlers.resource.ClassPathResourceManager;
 
-public class MainServer {
+public class MainServer extends UndertowServer {
 
-    public static void main(String... args) throws Exception {
-        final int httpPort = 8080;
-        final DatabaseConfig dbConfig = new DatabaseConfig.DatabaseConfigBuilder()
-                .setFlywayMigrate(true)
-                .setFullDatasourceName("jboss/datasources/AppDataSource")
-                .setPassword("sa")
-                .setUser("sa")
-                .setUrl("jdbc:h2:file:./h2_database;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE")
-                .createDatabaseConfig();
-        UndertowServer server = UndertowServer.createStarted(MainServer.class.getClassLoader(), httpPort, dbConfig);
+    private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(MainServer.class);
+
+    @Override
+    protected PathHandler createResources() {
+        PathHandler pathHandler = new PathHandler();//(new BaseResource());
+        pathHandler.addPrefixPath("api/now", new NowResource());
+        pathHandler.addPrefixPath("api/system", new SystemResource());
+        pathHandler.addPrefixPath("api/endusers", new EndUserResource());
+        pathHandler.addPrefixPath("/", Handlers.resource(
+                new ClassPathResourceManager(MainServer.class.getClassLoader(), "webapp"))
+                .addWelcomeFiles("index.html")
+                .setDirectoryListingEnabled(true));
+        return pathHandler;
+    }
+
+    public static void main(String[] args) throws Exception {
+        Config config = new Config.Builder()
+                .pass("sa")
+                .user("sa")
+                .url("jdbc:h2:file:./h2_database")
+                .port(8080)
+                .build();
+        MainServer mainServer = new MainServer();
+        mainServer.start(config);
     }
 }

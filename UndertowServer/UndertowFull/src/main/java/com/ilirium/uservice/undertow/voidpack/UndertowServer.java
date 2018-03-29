@@ -1,9 +1,8 @@
-package com.ilirium.uservice.undertow;
+package com.ilirium.uservice.undertow.voidpack;
 
-import com.ilirium.database.commons.FlywayMigrationInvoker;
 import com.ilirium.database.commons.FlywayUtils;
 import com.ilirium.uservice.undertowserver.commons.BenchmarkHandler;
-import com.ilirium.uservice.undertowserver.commons.DatabaseConfig;
+import com.ilirium.uservice.undertowserver.commons.Config;
 import com.ilirium.webservice.filters.LoggingFilter;
 import io.undertow.server.handlers.resource.ClassPathResourceManager;
 import org.jnp.server.NamingBeanImpl;
@@ -40,11 +39,11 @@ public class UndertowServer {
         this.port = port;
     }
 
-    public static UndertowServer createStarted(final ClassLoader classLoader, Class<? extends Application> applicationClass, int port, DatabaseConfig dbConfig) throws Exception {
+    public static UndertowServer createStarted(final ClassLoader classLoader, Class<? extends Application> applicationClass, Config config) throws Exception {
 
-        final String resourceNameDatasource = "java:" + dbConfig.getFullDatasourceName();
+        final String resourceNameDatasource = "java:" + config.getFullDatasourceName();
 
-        final UndertowServer myServer = new UndertowServer(port);
+        final UndertowServer myServer = new UndertowServer(config.getPort());
 
         BenchmarkHandler.benchmark("Total server startup time", () -> {
 
@@ -52,13 +51,13 @@ public class UndertowServer {
 
             BenchmarkHandler.benchmark("JNDI/JTA", () -> {
                 myServer.createJndiServer();
-                myServer.createDataSource(dbConfig);
+                myServer.createDataSource(config);
                 myServer.createDataSourceContext(resourceNameDatasource);
                 JNDIManager.bindJTAImplementation();
             });
 
             // TODO: refactor!
-            if (dbConfig.isFlywayMigrate()) {
+            if (config.isFlywayMigrate()) {
                 BenchmarkHandler.benchmark("Flyway Migration", () -> {
                     myServer.migrate();
                 });
@@ -114,13 +113,13 @@ public class UndertowServer {
         server.deploy(deploymentInfo);
     }
 
-    private void createDataSource(DatabaseConfig dbConfig) throws NamingException {
+    private void createDataSource(Config dbConfig) throws NamingException {
         JdbcDataSource ds = new JdbcDataSource();
         //"jdbc:h2:mem:test;MODE=Oracle;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE"
         //"jdbc:h2:file:./h2_database;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE"
-        ds.setUrl(dbConfig.getUrl());
-        ds.setUser(dbConfig.getUser());
-        ds.setPassword(dbConfig.getPassword());
+        ds.setUrl(dbConfig.getDatabaseUrl());
+        ds.setUser(dbConfig.getDatabaseUsername());
+        ds.setPassword(dbConfig.getDatabasePassword());
         this.dataSource = ds;
     }
 
