@@ -1,5 +1,6 @@
 package com.ilirium.uService.exampleservicejar.initialization;
 
+import com.ilirium.uService.exampleservicejar.resource.EndUserResource;
 import com.ilirium.uService.exampleservicejar.resource.HelloResource;
 
 import javax.ws.rs.ApplicationPath;
@@ -21,6 +22,7 @@ public class Activator extends com.ilirium.webservice.commons.JaxRsActivator {
     public Set<Class<?>> getResources() {
         Set<Class<?>> resources = new HashSet<>();
         resources.add(HelloResource.class);
+        resources.add(EndUserResource.class);
         return resources;
     }
 }

@@ -12,18 +12,15 @@
     <modules>
         <module>JPARepository</module>
         <module>CoreService</module>
+		<module>UndertowServer</module>
         <module>Examples</module>
         <module>SwaggerUI</module>
         <module>Firebase</module>
-        <module>Sql2oRepository</module>
-        <module>UndertowServer</module>
+        <module>Sql2oRepository</module>        
         <module>Flyway</module>
     </modules>
 
-    <name>uService</name>
-
     <packaging>pom</packaging>
-
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

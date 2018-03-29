@@ -26,6 +26,7 @@ public abstract class JaxRsActivator extends Application {
     public Set<Class<?>> getClasses() {
         Set<Class<?>> classes = new HashSet<>();
         classes.add(CoreSystemResource.class);
+        classes.add(CoreSystemResource.class);
         classes.add(RepositorySystemResource.class);
         classes.add(CORSFilter.class);
         classes.add(ObjectMapperContextResolver.class);

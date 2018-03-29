@@ -1,5 +1,7 @@
 package com.ilirium.uservice.undertow;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ilirium.database.commons.FlywayMigrationInvoker;
 import com.ilirium.webservice.filters.LoggingFilter;
 import io.undertow.server.handlers.resource.ClassPathResourceManager;
@@ -39,9 +41,9 @@ public class UndertowServer {
         this.port = port;
     }
 
-    public static UndertowServer createStarted(final ClassLoader classLoader, Class<? extends Application> applicationClass, int port, String fullDatasourceName, boolean flywayMigrate) throws Exception {
+    public static UndertowServer createStarted(final ClassLoader classLoader, Class<? extends Application> applicationClass, int port, DatabaseConfig dbConfig) throws Exception {
 
-        final String resourceNameDatasource = "java:" + fullDatasourceName;
+        final String resourceNameDatasource = "java:" + dbConfig.getFullDatasourceName();
 
         final UndertowServer myServer = new UndertowServer(port);
 
@@ -51,31 +53,31 @@ public class UndertowServer {
 
             BenchmarkHandler.benchmark("JNDI/JTA", () -> {
                 myServer.createJndiServer();
-                myServer.createDataSource();
+                myServer.createDataSource(dbConfig);
                 myServer.createDataSourceContext(resourceNameDatasource);
                 JNDIManager.bindJTAImplementation();
             });
 
             // TODO: refactor!
-            if (flywayMigrate) {
+            if (dbConfig.isFlywayMigrate()) {
                 BenchmarkHandler.benchmark("Flyway Migration", () -> {
                     myServer.migrate();
                 });
             }
+
             BenchmarkHandler.benchmark("Start Listener", () -> {
                 myServer.startListener("0.0.0.0");
             });
             BenchmarkHandler.benchmark("JaxRS App Deploy", () -> {
                 DeploymentInfo deploymentInfo = myServer.deployApplication("/api", applicationClass)
-
                         .addWelcomePage("index.html")
                         .setResourceManager(new ClassPathResourceManager(classLoader, "static"))
-
                         .setClassLoader(classLoader)
                         .setContextPath("/")
                         .setDeploymentName("MyApplication")
                         .addListeners(Servlets.listener(org.jboss.weld.environment.servlet.Listener.class))
                         //.addListeners(Servlets.listener(BackgroundJobs.class))
+                        // TODO: maybe implement SCAN filter classes ?
                         .addFilter(Servlets.filter("LoggingFilter", LoggingFilter.class))
                         .addFilterUrlMapping("LoggingFilter", "*", DispatcherType.REQUEST)
                         .addInitParameter("NodeId", String.valueOf("1"));
@@ -113,12 +115,13 @@ public class UndertowServer {
         server.deploy(deploymentInfo);
     }
 
-    private void createDataSource() throws NamingException {
+    private void createDataSource(DatabaseConfig dbConfig) throws NamingException {
         JdbcDataSource ds = new JdbcDataSource();
-        //dataSource.setURL("jdbc:h2:mem:test;MODE=Oracle;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE");
-        ds.setUrl("jdbc:h2:file:./h2_database;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE");
-        ds.setUser("sa");
-        ds.setPassword("sa");
+        //"jdbc:h2:mem:test;MODE=Oracle;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE"
+        //"jdbc:h2:file:./h2_database;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE"
+        ds.setUrl(dbConfig.getUrl());
+        ds.setUser(dbConfig.getUser());
+        ds.setPassword(dbConfig.getPassword());
         this.dataSource = ds;
     }
 
@@ -133,12 +136,13 @@ public class UndertowServer {
         }
     }
 
-    private void callTestResource() {
+    private void callTestResource() throws Exception {
         final Client client = ClientBuilder.newClient();
         final String string = String.format("http://%s:%s/api/system/schema_version", "localhost", String.valueOf(port));
         final Response response = client.target(string).request().get();// .request(MediaType.APPLICATION_JSON_TYPE).get();
+        final String responseString = response.readEntity(String.class);
         System.out.println("---------------");
-        System.out.println(response.readEntity(String.class));
+        System.out.println(responseString);
         System.out.println("---------------");
     }
 
@@ -159,17 +163,5 @@ public class UndertowServer {
     }
 
 
-}
 
-class BenchmarkHandler {
-
-    public static void benchmark(String bechmarkType, Benchmarked benchmarked) throws Exception {
-        ZonedDateTime now = ZonedDateTime.now();
-        benchmarked.execute();
-        System.out.println("Time - " + bechmarkType + " : " + now.until(ZonedDateTime.now(), ChronoUnit.MILLIS) + "ms");
-    }
-
-    public interface Benchmarked {
-        public void execute() throws Exception;
-    }
 }

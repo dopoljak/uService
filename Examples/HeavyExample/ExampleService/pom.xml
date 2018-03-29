@@ -34,7 +34,7 @@
         </dependency>
         <dependency>
             <groupId>com.iLirium.uService</groupId>
-            <artifactId>UndertowServer</artifactId>
+            <artifactId>UndertowFull</artifactId>
             <version>${project.version}</version>
         </dependency>
 
@@ -140,6 +140,7 @@
 
 
 
+            <!-- TODO: mislim da je problem bio sa ovim što je ovo multimodule projekt a jandex ne zna raditi sa time pa je tu bilo sranja! s time da mislim da sam ja taj index file bio rucno spajao (output od više modula) i da je cak delalo ali da je zajeb jer treba to nekako u bild time spojiti! -->
             <!-- speed up boot time by indexing all classes used by WELD CDI -->
             <!--plugin>
                 <groupId>org.jboss.jandex</groupId>

@@ -32,3 +32,9 @@ Examples/HeavyExample/ExampleService/target/
 Examples/HeavyExample/ExampleDatabase/target/
 
 Flyway/target/
+
+Examples/HeavyExample/ExampleClient/target/
+
+UndertowServer/UndertowFull/target/
+
+UndertowServer/UndertowVoid/target/
