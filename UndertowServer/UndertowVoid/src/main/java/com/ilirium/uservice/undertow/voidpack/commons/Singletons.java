@@ -1,10 +1,10 @@
-package com.ilirium.uService.exampleservicejar.light.commons;
+package com.ilirium.uservice.undertow.voidpack.commons;
 
-import com.ilirium.repository.sql2o.Database;
+import com.ilirium.uservice.undertowserver.commons.Config;
 
 public class Singletons {
 
-    private static Database database;
+    //private static Database database;
     private static Config config;
 
     public static void setConfig(Config config) {
@@ -27,6 +27,7 @@ public class Singletons {
         return jobs;
     }*/
 
+    /*
     public static void setDatabase(Database database) {
         Singletons.database = database;
     }
@@ -35,5 +36,5 @@ public class Singletons {
     public static Database getDatabase() {
         return database;
     }
-
+    */
 }

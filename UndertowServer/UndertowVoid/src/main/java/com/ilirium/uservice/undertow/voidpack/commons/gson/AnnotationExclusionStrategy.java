@@ -1,4 +1,4 @@
-package com.ilirium.uService.exampleservicejar.light.commons.gson;
+package com.ilirium.uservice.undertow.voidpack.commons.gson;
 
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;

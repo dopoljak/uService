@@ -1,4 +1,4 @@
-package com.ilirium.uService.exampleservicejar.light.resources.commons;
+package com.ilirium.uservice.undertow.voidpack.base;
 
 import io.undertow.server.HttpServerExchange;
 

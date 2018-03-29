@@ -1,4 +1,4 @@
-package com.ilirium.uservice.undertow;
+package com.ilirium.uservice.undertow.voidpack.commons;
 
 import org.pmw.tinylog.Level;
 import org.pmw.tinylog.labelers.TimestampLabeler;

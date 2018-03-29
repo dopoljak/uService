@@ -1,10 +1,10 @@
-package com.ilirium.uService.exampleservicejar.light.commons.gson;
+package com.ilirium.uservice.undertow.voidpack.commons.gson;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import com.ilirium.uService.exampleservicejar.light.commons.AppException;
+import com.ilirium.uservice.undertow.voidpack.commons.AppException;
 
 import java.lang.reflect.Type;
 

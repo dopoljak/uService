@@ -1,4 +1,4 @@
-package com.ilirium.uService.exampleservicejar.light.commons;
+package com.ilirium.uservice.undertow.voidpack.commons;
 
 import io.undertow.util.StatusCodes;
 
