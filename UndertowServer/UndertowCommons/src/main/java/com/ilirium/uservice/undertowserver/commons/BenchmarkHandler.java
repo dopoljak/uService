@@ -1,4 +1,4 @@
-package com.ilirium.uservice.undertow;
+package com.ilirium.uservice.undertowserver.commons;
 
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;

@@ -13,4 +13,9 @@
     <packaging>pom</packaging>
     <artifactId>LightExample</artifactId>
 
+	
+    <modules>
+        <module>ExampleLightService</module>
+    </modules>
+	
 </project>

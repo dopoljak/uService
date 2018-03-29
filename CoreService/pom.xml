@@ -16,19 +16,10 @@
 
     <dependencies>
 
-
         <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>7.0</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.25</version>
-            <scope>provided</scope>
+            <groupId>com.iLirium.uService</groupId>
+            <artifactId>JPARepository</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
@@ -44,10 +35,21 @@
         </dependency>
 
         <dependency>
-            <groupId>com.iLirium.uService</groupId>
-            <artifactId>JPARepository</artifactId>
-            <version>${project.version}</version>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.25</version>
+            <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>7.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+
+
 
 		
         <!--dependency>

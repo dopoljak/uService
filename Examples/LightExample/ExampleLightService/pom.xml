@@ -3,38 +3,22 @@
     <modelVersion>4.0.0</modelVersion>
 	
     <parent>
-        <artifactId>HeavyExample</artifactId>
+        <artifactId>LightExample</artifactId>
         <groupId>com.iLirium.uService</groupId>
         <version>1.00-SNAPSHOT</version>
     </parent>
 	
-    <artifactId>ExampleService</artifactId>
+    <artifactId>ExampleLightService</artifactId>
     <packaging>jar</packaging>
-	
-	
 	
 
 
     <dependencies>
 
+
         <dependency>
             <groupId>com.iLirium.uService</groupId>
-            <artifactId>ExampleClient</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.iLirium.uService</groupId>
-            <artifactId>ExampleDatabase</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.iLirium.uService</groupId>
-            <artifactId>CoreService</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.iLirium.uService</groupId>
-            <artifactId>UndertowFull</artifactId>
+            <artifactId>UndertowVoid</artifactId>
             <version>${project.version}</version>
         </dependency>
 
@@ -71,8 +55,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-
 
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -172,7 +154,7 @@
                         <configuration>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.ilirium.uService.exampleservicejar.MainServer</mainClass>
+                                    <mainClass>com.ilirium.uService.exampleservicejar.light.MainServer</mainClass>
                                 </transformer>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                             </transformers>

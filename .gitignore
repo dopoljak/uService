@@ -38,3 +38,7 @@ Examples/HeavyExample/ExampleClient/target/
 UndertowServer/UndertowFull/target/
 
 UndertowServer/UndertowVoid/target/
+
+Examples/LightExample/ExampleLightService/target/
+
+UndertowServer/UndertowCommons/target/

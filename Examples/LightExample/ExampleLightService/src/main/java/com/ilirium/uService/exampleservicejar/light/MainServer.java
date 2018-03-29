@@ -1,6 +1,5 @@
-package com.ilirium.uService.exampleservicejar;
+package com.ilirium.uService.exampleservicejar.light;
 
-import com.ilirium.uService.exampleservicejar.initialization.Activator;
 import com.ilirium.uservice.undertow.UndertowServer;
 import com.ilirium.uservice.undertowserver.commons.DatabaseConfig;
 
@@ -15,6 +14,6 @@ public class MainServer {
                 .setUser("sa")
                 .setUrl("jdbc:h2:file:./h2_database;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE")
                 .createDatabaseConfig();
-        UndertowServer server = UndertowServer.createStarted(MainServer.class.getClassLoader(), Activator.class, httpPort, dbConfig);
+        UndertowServer server = UndertowServer.createStarted(MainServer.class.getClassLoader(), httpPort, dbConfig);
     }
 }

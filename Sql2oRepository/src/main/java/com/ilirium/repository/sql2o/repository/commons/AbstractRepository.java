@@ -20,6 +20,7 @@ public abstract class AbstractRepository<E> {
         return (Class<E>) genericSuperclass.getActualTypeArguments()[0];
     }
 
+    // TODO: this is not good patern, transaction should be maintained in upper-layer, refactor! :)
     protected Long insert(E entity, String insert) {
         try (Connection connection = getSql2o().beginTransaction()) {
             Long id = (Long) connection.createQuery(insert)

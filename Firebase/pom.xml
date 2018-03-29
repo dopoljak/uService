@@ -18,7 +18,6 @@
 
 
     <dependencies>
-
         <!-- RETROFIT REST CLIENT -->
         <dependency>
             <groupId>com.squareup.retrofit2</groupId>
@@ -30,7 +29,6 @@
             <artifactId>converter-jackson</artifactId>
             <version>${retrofit.version}</version>
         </dependency>
-
     </dependencies>
 
 

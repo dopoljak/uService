@@ -21,18 +21,10 @@ public class FlywayMigrationInvoker implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        flywayMigrate(dataSource);
+        FlywayUtils.flywayMigrate(dataSource);
     }
 
-    public void flywayMigrate(DataSource dataSource) {
-        try {
-            Flyway flyway = new Flyway();
-            flyway.setDataSource(dataSource);
-            flyway.migrate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {

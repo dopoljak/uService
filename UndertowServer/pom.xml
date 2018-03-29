@@ -20,10 +20,11 @@
     </properties>
 
 
-	<modules>
-		<module>UndertowFull</module>
-		<module>UndertowVoid</module>
+    <modules>
+        <module>UndertowCommons</module>
+        <module>UndertowFull</module>
+        <module>UndertowVoid</module>
     </modules>
-	
+
 
 </project>
