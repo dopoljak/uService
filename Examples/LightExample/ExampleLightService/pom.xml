@@ -125,6 +125,28 @@
                 </executions>
             </plugin>
 
+            <plugin>
+                <groupId>com.github.chrisdchristo</groupId>
+                <artifactId>capsule-maven-plugin</artifactId>
+                <version>1.5.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                        <configuration>
+                            <appClass>com.ilirium.uService.exampleservicejar.light.MainServer</appClass>
+                            <type>fat</type>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <outputDir>${project.build.directory}/release/</outputDir>
+                </configuration>
+            </plugin>
+
+
+
 
 
 
@@ -179,22 +201,8 @@
                 </executions>
             </plugin-->
 
-            <plugin>
-                <groupId>com.github.chrisdchristo</groupId>
-                <artifactId>capsule-maven-plugin</artifactId>
-                <version>1.5.1</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                        <configuration>
-                            <appClass>com.ilirium.uService.exampleservicejar.light.MainServer</appClass>
-                            <type>fat</type>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+
+
 
         </plugins>
     </build>
