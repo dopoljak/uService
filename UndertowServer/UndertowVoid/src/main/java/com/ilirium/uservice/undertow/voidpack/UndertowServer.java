@@ -5,6 +5,7 @@ import com.ilirium.repository.sql2o.repository.commons.Sql2oSingleton;
 import com.ilirium.uservice.undertow.voidpack.commons.*;
 import com.ilirium.uservice.undertowserver.commons.Config;
 import io.undertow.Undertow;
+import io.undertow.UndertowOptions;
 import io.undertow.server.handlers.PathHandler;
 import org.sql2o.Sql2o;
 
@@ -108,6 +109,7 @@ public abstract class UndertowServer {
 
         // http server
         Undertow server = Undertow.builder()
+                .setServerOption(UndertowOptions.ENABLE_HTTP2, true)
                 .addHttpListener(Singletons.getConfig().getPort(), "0.0.0.0")
                 .setIoThreads(Runtime.getRuntime().availableProcessors() * 2)
                 .setWorkerThreads(2)
