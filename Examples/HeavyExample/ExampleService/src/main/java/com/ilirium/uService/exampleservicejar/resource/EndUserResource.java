@@ -31,7 +31,7 @@ public class EndUserResource {
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(EndUserResource.class);
 
     @Inject
-    private Event<AbstractDO> domainObjectEvents;
+    private Event<AbstractEntity> domainObjectEvents;
 
     @Inject
     private EndUserMapper endUserMapper;

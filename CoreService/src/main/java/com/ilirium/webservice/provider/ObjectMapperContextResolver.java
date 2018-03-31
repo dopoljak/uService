@@ -1,5 +1,6 @@
-package com.ilirium.webservice.commons;
+package com.ilirium.webservice.provider;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,9 +11,6 @@ import javax.ws.rs.ext.ContextResolver;
 import javax.ws.rs.ext.Provider;
 import java.io.IOException;
 
-/**
- * @author DoDo
- */
 @Provider
 public class ObjectMapperContextResolver implements ContextResolver<ObjectMapper> {
 
@@ -20,7 +18,9 @@ public class ObjectMapperContextResolver implements ContextResolver<ObjectMapper
 
     public ObjectMapperContextResolver() {
         mapper = new ObjectMapper();
-        mapper.getSerializerProvider().setNullKeySerializer(new MyDtoNullKeySerializer());
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
+        // TODO why would we ever want to serialize null-key properties?
+//        mapper.getSerializerProvider().setNullKeySerializer(new NullKeySerializer());
     }
 
     @Override
@@ -28,13 +28,13 @@ public class ObjectMapperContextResolver implements ContextResolver<ObjectMapper
         return mapper;
     }
 
-    class MyDtoNullKeySerializer extends StdSerializer<Object> {
+    private class NullKeySerializer extends StdSerializer<Object> {
 
-        public MyDtoNullKeySerializer() {
+        public NullKeySerializer() {
             this(null);
         }
 
-        public MyDtoNullKeySerializer(Class<Object> t) {
+        public NullKeySerializer(Class<Object> t) {
             super(t);
         }
 

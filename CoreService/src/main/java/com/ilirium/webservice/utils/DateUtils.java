@@ -1,4 +1,4 @@
-package com.ilirium.webservice.commons;
+package com.ilirium.webservice.utils;
 
 import java.text.SimpleDateFormat;
 import java.time.*;

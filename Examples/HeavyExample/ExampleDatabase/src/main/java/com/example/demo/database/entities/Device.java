@@ -1,6 +1,6 @@
 package com.example.demo.database.entities;
 
-import com.ilirium.database.commons.AbstractDO;
+import com.ilirium.database.commons.AbstractEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,7 +21,7 @@ import javax.persistence.Table;
 })
 @Entity
 @Table(name = "DEVICE")
-public class Device extends AbstractDO {
+public class Device extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

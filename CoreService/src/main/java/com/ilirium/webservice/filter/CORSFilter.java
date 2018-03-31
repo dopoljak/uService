@@ -1,4 +1,4 @@
-package com.ilirium.webservice.filters;
+package com.ilirium.webservice.filter;
 
 import javax.annotation.Priority;
 import javax.ws.rs.container.ContainerRequestContext;

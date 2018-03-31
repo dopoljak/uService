@@ -1,6 +1,6 @@
 package com.example.demo.database.entities;
 
-import com.ilirium.database.commons.AbstractDO;
+import com.ilirium.database.commons.AbstractEntity;
 import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,7 +22,7 @@ import javax.persistence.Table;
 })
 @Entity
 @Table(name = "ENDUSER")
-public class EndUser extends AbstractDO {
+public class EndUser extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ENDUSER_SEQ_GENERATOR")

@@ -1,7 +1,9 @@
-package com.ilirium.webservice.filters;
+package com.ilirium.webservice.generator;
 
+import javax.enterprise.context.ApplicationScoped;
 import java.math.BigInteger;
 
+@ApplicationScoped
 public class CorrelationIdGenerator {
 
     private static final long COUNTER_BITS = 10;

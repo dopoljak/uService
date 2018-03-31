@@ -1,4 +1,4 @@
-package com.ilirium.webservice.commons;
+package com.ilirium.webservice.utils;
 
 import javax.servlet.ServletContext;
 import java.io.IOException;

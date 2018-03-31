@@ -1,8 +1,8 @@
-package com.ilirium.webservice.commons;
+package com.ilirium.webservice.dto;
 
 import javax.ws.rs.QueryParam;
 
-public class QueryPage {
+public class QueryPageDTO {
 
     @QueryParam(value = "offset")
     private Integer offset;

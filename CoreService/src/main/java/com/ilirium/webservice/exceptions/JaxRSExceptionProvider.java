@@ -1,6 +1,6 @@
 package com.ilirium.webservice.exceptions;
 
-import com.ilirium.webservice.filters.LoggingFilter;
+import com.ilirium.webservice.filter.LoggingFilter;
 import org.slf4j.Logger;
 
 import javax.inject.Inject;

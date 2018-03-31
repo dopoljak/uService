@@ -1,9 +1,9 @@
 package com.ilirium.webservice.resources;
 
 import com.ilirium.webservice.commons.AppConfiguration;
-import com.ilirium.webservice.commons.DateUtils;
-import com.ilirium.webservice.commons.VersionUtils;
-import com.ilirium.webservice.filters.LoggingFilter;
+import com.ilirium.webservice.utils.DateUtils;
+import com.ilirium.webservice.utils.VersionUtils;
+import com.ilirium.webservice.filter.LoggingFilter;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import javax.enterprise.context.RequestScoped;
@@ -23,27 +23,8 @@ import java.util.Map;
  * @author dpoljak
  */
 
-import com.ilirium.webservice.commons.DateUtils;
-import com.ilirium.webservice.commons.VersionUtils;
-import com.ilirium.webservice.filters.LoggingFilter;
-
-import javax.enterprise.context.RequestScoped;
-import javax.servlet.ServletContext;
-import javax.transaction.Transactional;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import java.io.File;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
 //import org.wildfly.swarm.health.Health;
 //import org.wildfly.swarm.health.HealthStatus;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 
 
 /**

@@ -3,7 +3,7 @@ package com.ilirium.uservice.undertow.voidpack;
 import com.ilirium.database.commons.FlywayUtils;
 import com.ilirium.uservice.undertowserver.commons.BenchmarkHandler;
 import com.ilirium.uservice.undertowserver.commons.Config;
-import com.ilirium.webservice.filters.LoggingFilter;
+import com.ilirium.webservice.filter.LoggingFilter;
 import io.undertow.server.handlers.resource.ClassPathResourceManager;
 import org.jnp.server.NamingBeanImpl;
 import org.h2.jdbcx.JdbcDataSource;
