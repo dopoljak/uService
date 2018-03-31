@@ -125,6 +125,28 @@
                 </executions>
             </plugin>
 
+            <plugin>
+                <groupId>com.github.chrisdchristo</groupId>
+                <artifactId>capsule-maven-plugin</artifactId>
+                <version>1.5.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                        <configuration>
+                            <appClass>com.ilirium.uService.exampleservicejar.light.MainServer</appClass>
+                            <type>fat</type>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <outputDir>${project.build.directory}/release/</outputDir>
+                </configuration>
+            </plugin>
+
+
+
 
 
 
@@ -147,7 +169,7 @@
             </plugin-->
 
 
-            <plugin>
+            <!--plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.0.0</version>
@@ -165,13 +187,8 @@
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                             </transformers>
                             <outputFile>${project.build.directory}/release/${project.artifactId}-${project.version}-shaded.jar</outputFile>
-                            <!--outputDirectory>${project.build.directory}/release/</outputDirectory>
-                            <finalName>${project.artifactId}-${project.version}-shaded</finalName -->
                             <filters>
                                 <filter>
-                                    <!-- Exclude files that sign a jar (one or multiple of the dependencies).
-                                    One may not repack a signed jar without this, or you will get a SecurityException
-                                    at program start. -->
                                     <artifact>*:*</artifact>
                                     <excludes>
                                         <exclude>META-INF/*.SF</exclude>
@@ -182,7 +199,8 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin-->
+
 
 
 
