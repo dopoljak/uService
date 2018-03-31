@@ -20,7 +20,7 @@ public class TinyLogProvider {
             level = org.pmw.tinylog.Level.valueOf(parameter);
         }
 
-        Writer writer = checkIfStartedFromIDE() ? new ConsoleWriter() : new RollingFileWriter(LOG_FILENAME, 20, new TimestampLabeler(), new StartupPolicy(), new SizePolicy(10_000_00));
+        Writer writer = runningFromIntelliJ() ? new ConsoleWriter() : new RollingFileWriter(LOG_FILENAME, 20, new TimestampLabeler(), new StartupPolicy(), new SizePolicy(10_000_00));
         org.pmw.tinylog.Configurator.defaultConfig()
                 .formatPattern("{context:CorrelationId} {thread} {date:yyyy-MM-dd HH:mm:ss} {level} {class_name}.{method} : {message}")
                 .writer(writer)
@@ -28,7 +28,14 @@ public class TinyLogProvider {
                 .activate();
     }
 
-    private static boolean checkIfStartedFromIDE() {
-        return System.getProperty("user.dir").contains("C:\\Projects\\_home\\uService");
+    /*private static boolean checkIfStartedFromIDE() {
+        return System.getProperty("user.dir").contains("C:\\Projects\\uService");
+    }*/
+
+    public static boolean runningFromIntelliJ() {
+        String classPath = System.getProperty("java.class.path");
+        boolean idea = classPath.contains("idea_rt.jar");
+        System.out.println("Is app started from IDEA = " + idea);
+        return idea;
     }
 }

@@ -2,40 +2,13 @@ package com.ilirium.uservice.undertowserver.commons;
 
 public class Config {
 
-    //static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(Config.class);
-
     private String fullDatasourceName;
     private String databaseUrl;
     private String databaseUsername;
     private String databasePassword;
     private Integer port;
     private boolean flywayMigrate;
-
-
-
-    /*
-    public static Config create() {
-        Config config = new Config();
-        config.defaults();
-        config.resolveHttpPort();
-        return config;
-    }
-
-    void defaults() {
-        databaseUrl = "jdbc:h2:file:./h2_database";
-        databaseUsername = "sa";
-        databasePassword = "sa";
-        port = 8080;
-    }*/
-
-    /*
-    void resolveHttpPort() throws NumberFormatException {
-        if (System.getProperty("port") != null && !System.getProperty("port").isEmpty()) {
-            port = Integer.valueOf(System.getProperty("port"));
-        }
-        System.out.println("Resolved HTTP PORT = " + port);
-        LOGGER.info("Resolved HTTP PORT = {}", port);
-    }*/
+    private boolean dumpRequest;
 
     public int getPort() {
         return port;
@@ -61,6 +34,10 @@ public class Config {
         return fullDatasourceName;
     }
 
+    public boolean isDumpRequest() {
+        return dumpRequest;
+    }
+
     public static final class Builder {
 
         String url;
@@ -69,6 +46,12 @@ public class Config {
         int port;
         boolean flywayMigrate;
         String fullDatasourceName;
+        private boolean dumpRequest = false;
+
+        public Builder dumpRequest() {
+            this.dumpRequest = true;
+            return this;
+        }
 
         public Builder url(String url) {
             this.url = url;
@@ -108,7 +91,21 @@ public class Config {
             config.port = port;
             config.flywayMigrate = flywayMigrate;
             config.fullDatasourceName = fullDatasourceName;
+            config.dumpRequest = dumpRequest;
             return config;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Config{" +
+                "fullDatasourceName='" + fullDatasourceName + '\'' +
+                ", databaseUrl='" + databaseUrl + '\'' +
+                ", databaseUsername='" + databaseUsername + '\'' +
+                ", databasePassword='" + databasePassword + '\'' +
+                ", port=" + port +
+                ", flywayMigrate=" + flywayMigrate +
+                ", dumpRequest=" + dumpRequest +
+                '}';
     }
 }

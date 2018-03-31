@@ -17,7 +17,7 @@ public class StopWatch {
         return new StopWatch();
     }
 
-    public long getTotalTimeMillis() {
+    public long getTotalExecutionMillis() {
         return TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - start);
     }
 }

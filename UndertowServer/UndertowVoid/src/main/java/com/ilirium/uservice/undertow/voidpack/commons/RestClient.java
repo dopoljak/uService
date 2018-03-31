@@ -7,29 +7,28 @@ public class RestClient {
 
     public void call(String endpoint, String urlParameters) {
         try {
-
             URL url = new URL(endpoint);
             String query = urlParameters;
 
             //make connection
-            URLConnection urlc = url.openConnection();
+            URLConnection urlConnection = url.openConnection();
 
             //use post mode
-            urlc.setDoOutput(true);
-            urlc.setAllowUserInteraction(false);
+            urlConnection.setDoOutput(true);
+            urlConnection.setAllowUserInteraction(false);
 
             //send query
-            PrintStream ps = new PrintStream(urlc.getOutputStream());
-            //ps.print(query);
-            ps.close();
+            PrintStream printStream = new PrintStream(urlConnection.getOutputStream());
+            //printStream.print(query);
+            printStream.close();
 
             //get result
-            BufferedReader br = new BufferedReader(new InputStreamReader(urlc.getInputStream()));
-            String l = null;
-            while ((l = br.readLine()) != null) {
-                System.out.println(l);
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+            String line = null;
+            while ((line = bufferedReader.readLine()) != null) {
+                System.out.println(line);
             }
-            br.close();
+            bufferedReader.close();
         }
         catch (Exception e) {
             throw new RuntimeException(e);

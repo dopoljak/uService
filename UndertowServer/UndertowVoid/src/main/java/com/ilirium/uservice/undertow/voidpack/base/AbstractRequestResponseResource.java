@@ -7,20 +7,19 @@ import io.undertow.server.HttpServerExchange;
 import io.undertow.util.HeaderValues;
 import io.undertow.util.Headers;
 import io.undertow.util.Methods;
+
 import java.lang.reflect.ParameterizedType;
 import java.util.Deque;
 import java.util.Map;
 
 /**
- *
  * @author dpoljak
  */
 public abstract class AbstractRequestResponseResource<REQUESTDTO> implements HttpHandler {
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(AbstractRequestResponseResource.class);
-    public static final String APPLICATION_JSON = "application/json";
-    public static final String TEXT_PLAIN = "text/plain";
     private final Class<REQUESTDTO> clazz;
+    protected Converter converter = Converter.get();
 
     public AbstractRequestResponseResource() {
         this.clazz = requestClass();
@@ -36,22 +35,22 @@ public abstract class AbstractRequestResponseResource<REQUESTDTO> implements Htt
         try {
             StopWatch sw = StopWatch.start();
             resolveCorrelationId(exchange);
-            
+
             LOGGER.info(">> REQ: {}", exchange.getRequestURL());
             LOGGER.debug("Instance HashCode = {}", this.hashCode());
 
-            exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, APPLICATION_JSON);
+            exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, Mime.APPLICATION_JSON.get());
 
-            if (exchange.getRequestMethod().equals(Methods.POST)) {
+            if (exchange.getRequestMethod().equals(Methods.POST) || exchange.getRequestMethod().equals(Methods.PUT)) {
                 exchange.getRequestReceiver().receiveFullString((HttpServerExchange exchange2, String message) -> {
-                    REQUESTDTO requestDTO = Converter.getInstance().fromJson(message, clazz);
-                    exchange2.getResponseSender().send(Converter.getInstance().toJson(handle(exchange2, requestDTO)));
+                    REQUESTDTO requestDTO = converter.fromJson(message, clazz);
+                    exchange2.getResponseSender().send(converter.toJson(handle(exchange2, requestDTO)));
                 });
             } else {
-                exchange.getResponseSender().send(Converter.getInstance().toJson(handle(exchange, null)));
+                exchange.getResponseSender().send(converter.toJson(handle(exchange, null)));
             }
 
-            LOGGER.info("<< RES: {}, executed in '{}ms'", exchange.getResolvedPath(), sw.getTotalTimeMillis());
+            LOGGER.info("<< RES: {}, executed in '{}ms'", exchange.getResolvedPath(), sw.getTotalExecutionMillis());
         } catch (Exception e) {
             LOGGER.error("AbstractJsonResource : ", e);
             sendError(e, exchange);
@@ -75,7 +74,7 @@ public abstract class AbstractRequestResponseResource<REQUESTDTO> implements Htt
             } else {
                 LOGGER.info("Response channel is not available !!!! ");
             }
-            String json = Converter.getInstance().toJson(appException);
+            String json = converter.toJson(appException);
             LOGGER.error("Error in JSON = {}", json);
             exchange.setStatusCode(appException.getHttpStatusCode());
             exchange.getResponseSender().send(json);

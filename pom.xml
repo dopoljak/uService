@@ -18,6 +18,7 @@
         <module>Firebase</module>
         <module>Sql2oRepository</module>        
         <module>Flyway</module>
+        <module>RestClient</module>
     </modules>
 
     <packaging>pom</packaging>

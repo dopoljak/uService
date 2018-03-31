@@ -30,7 +30,7 @@ public class Converter {
         return GSON.fromJson(json, classOfT);
     }
 
-    public static Converter getInstance() {
+    public static Converter get() {
         return INSTANCE;
     }
 

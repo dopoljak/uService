@@ -15,14 +15,15 @@ import java.util.Collection;
  */
 public class EndUserResource extends AbstractResponseResource {
 
-    private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(EndUserResource.class);
-    private static final EndUserRepository endUserRepository = new EndUserRepository();
+    private final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(EndUserResource.class);
+    private final EndUserRepository endUserRepository = new EndUserRepository();
+    private final EndUserMapper endUserMapper = new EndUserMapper();
 
     @Override
     public Object handle(HttpServerExchange exchange) {
         Pagination pagination = pagination(exchange.getQueryParameters());
         Collection<EndUser> entities = endUserRepository.getAll(pagination);
-        Collection<EndUserDTO> dtos = EndUserMapper.map(entities);
+        Collection<EndUserDTO> dtos = endUserMapper.map(entities);
         LOGGER.info("EndUserDTO resource, size = {}", dtos.size());
         return dtos;
     }
