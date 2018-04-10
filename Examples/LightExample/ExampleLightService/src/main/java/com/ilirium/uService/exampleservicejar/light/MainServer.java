@@ -5,7 +5,8 @@ import com.ilirium.uService.exampleservicejar.light.resources.EndUserResource;
 import com.ilirium.uService.exampleservicejar.light.resources.NowResource;
 import com.ilirium.uService.exampleservicejar.light.resources.SystemResource;
 import com.ilirium.uservice.undertow.voidpack.UndertowServer;
-import com.ilirium.uservice.undertowserver.commons.Config;
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
 import io.undertow.Handlers;
 import io.undertow.server.HttpHandler;
 import io.undertow.server.RoutingHandler;
@@ -30,12 +31,7 @@ public class MainServer extends UndertowServer {
     }
 
     public static void main(String[] args) throws Exception {
-        Config config = new Config.Builder()
-                .pass("sa")
-                .user("sa")
-                .url("jdbc:h2:file:./h2_database")
-                .port(8080)
-                .build();
+        Config config = ConfigFactory.load();
         MainServer mainServer = new MainServer();
         mainServer.start(config);
     }

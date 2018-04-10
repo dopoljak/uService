@@ -1,9 +1,10 @@
 package com.ilirium.uservice.undertow.voidpack;
 
 import com.ilirium.database.commons.FlywayUtils;
+import com.ilirium.uservice.undertowserver.commons.BaseParameters;
 import com.ilirium.uservice.undertowserver.commons.BenchmarkHandler;
-import com.ilirium.uservice.undertowserver.commons.Config;
 import com.ilirium.webservice.filters.LoggingFilter;
+import com.typesafe.config.Config;
 import io.undertow.server.handlers.resource.ClassPathResourceManager;
 import org.jnp.server.NamingBeanImpl;
 import org.h2.jdbcx.JdbcDataSource;
@@ -41,9 +42,13 @@ public class UndertowServer {
 
     public static UndertowServer createStarted(final ClassLoader classLoader, Class<? extends Application> applicationClass, Config config) throws Exception {
 
-        final String resourceNameDatasource = "java:" + config.getFullDatasourceName();
+        System.out.println("Config : " + config);
 
-        final UndertowServer myServer = new UndertowServer(config.getPort());
+        BaseParameters baseParameters = new BaseParameters(config);
+
+        final String resourceNameDatasource = "java:" + baseParameters.getFullDatasourceName();
+
+        final UndertowServer myServer = new UndertowServer(baseParameters.getPort());
 
         BenchmarkHandler.benchmark("Total server startup time", () -> {
 
@@ -51,13 +56,13 @@ public class UndertowServer {
 
             BenchmarkHandler.benchmark("JNDI/JTA", () -> {
                 myServer.createJndiServer();
-                myServer.createDataSource(config);
+                myServer.createDataSource(baseParameters);
                 myServer.createDataSourceContext(resourceNameDatasource);
                 JNDIManager.bindJTAImplementation();
             });
 
             // TODO: refactor!
-            if (config.isFlywayMigrate()) {
+            if (baseParameters.isFlywayMigrate()) {
                 BenchmarkHandler.benchmark("Flyway Migration", () -> {
                     myServer.migrate();
                 });
@@ -103,24 +108,24 @@ public class UndertowServer {
     }
 
     private DeploymentInfo deployApplication(String appPath, Class<? extends Application> applicationClass) {
-        ResteasyDeployment deployment = new ResteasyDeployment();
-        deployment.setInjectorFactoryClass(org.jboss.resteasy.cdi.CdiInjectorFactory.class.getName());
-        deployment.setApplicationClass(applicationClass.getName());
-        return server.undertowDeployment(deployment, appPath);
+        ResteasyDeployment resteasyDeployment = new ResteasyDeployment();
+        resteasyDeployment.setInjectorFactoryClass(org.jboss.resteasy.cdi.CdiInjectorFactory.class.getName());
+        resteasyDeployment.setApplicationClass(applicationClass.getName());
+        return server.undertowDeployment(resteasyDeployment, appPath);
     }
 
     private void deploy(DeploymentInfo deploymentInfo) throws ServletException {
         server.deploy(deploymentInfo);
     }
 
-    private void createDataSource(Config dbConfig) throws NamingException {
-        JdbcDataSource ds = new JdbcDataSource();
+    private void createDataSource(BaseParameters baseParameters) throws NamingException {
+        JdbcDataSource jdbcDataSource = new JdbcDataSource();
         //"jdbc:h2:mem:test;MODE=Oracle;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE"
         //"jdbc:h2:file:./h2_database;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE"
-        ds.setUrl(dbConfig.getDatabaseUrl());
-        ds.setUser(dbConfig.getDatabaseUsername());
-        ds.setPassword(dbConfig.getDatabasePassword());
-        this.dataSource = ds;
+        jdbcDataSource.setUrl(baseParameters.getDatabaseUrl());
+        jdbcDataSource.setUser(baseParameters.getDatabaseUsername());
+        jdbcDataSource.setPassword(baseParameters.getDatabasePassword());
+        this.dataSource = jdbcDataSource;
     }
 
     private void createDataSourceContext(String datasourceName) throws NamingException {

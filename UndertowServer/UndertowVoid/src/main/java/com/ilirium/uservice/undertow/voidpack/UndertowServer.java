@@ -3,7 +3,8 @@ package com.ilirium.uservice.undertow.voidpack;
 import com.ilirium.database.commons.FlywayUtils;
 import com.ilirium.repository.sql2o.repository.commons.Sql2oSingleton;
 import com.ilirium.uservice.undertow.voidpack.commons.*;
-import com.ilirium.uservice.undertowserver.commons.Config;
+import com.ilirium.uservice.undertowserver.commons.BaseParameters;
+import com.typesafe.config.Config;
 import io.undertow.Undertow;
 import io.undertow.UndertowOptions;
 import io.undertow.server.HttpHandler;
@@ -26,7 +27,7 @@ public abstract class UndertowServer {
 
     protected abstract HttpHandler createHandlers();
 
-    void createSingletons(Config config) {
+    void createSingletons(BaseParameters config) {
         Sql2oSingleton.INSTANCE.set(new Sql2o(config.getDatabaseUrl(), config.getDatabaseUsername(), config.getDatabasePassword()));
     }
 
@@ -66,8 +67,10 @@ public abstract class UndertowServer {
         LOGGER.info("Starting Undertow server, buildDate = '{}' ...", buildDate);
         System.out.println("Starting Undertow server buildDate = '" + buildDate + "' ...");
 
+        BaseParameters baseParameters = new BaseParameters(config);
+
         // singletons
-        createSingletons(config);
+        createSingletons(baseParameters);
 
         // migrate flyway
         FlywayUtils.flywayMigrate(Sql2oSingleton.INSTANCE.getSql2o().getDataSource());
@@ -75,10 +78,10 @@ public abstract class UndertowServer {
         // http server
         Undertow server = Undertow.builder()
                 .setServerOption(UndertowOptions.ENABLE_HTTP2, true)
-                .addHttpListener(config.getPort(), "0.0.0.0")
+                .addHttpListener(baseParameters.getPort(), "0.0.0.0")
                 .setIoThreads(Runtime.getRuntime().availableProcessors() * 2)
                 .setWorkerThreads(2)
-                .setHandler(config.isDumpRequest() ? new RequestDumpingHandler(createHandlers()) : createHandlers())
+                .setHandler(baseParameters.isDumpRequest() ? new RequestDumpingHandler(createHandlers()) : createHandlers())
                 .build();
         server.start();
 
