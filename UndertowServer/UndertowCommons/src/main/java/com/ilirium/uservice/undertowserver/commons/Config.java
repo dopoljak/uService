@@ -2,6 +2,7 @@ package com.ilirium.uservice.undertowserver.commons;
 
 public class Config {
 
+    private String appPath;
     private String fullDatasourceName;
     private String databaseUrl;
     private String databaseUsername;
@@ -28,6 +29,10 @@ public class Config {
 
     public boolean isFlywayMigrate() {
         return flywayMigrate;
+    }
+
+    public String getAppPath() {
+        return appPath;
     }
 
     public String getFullDatasourceName() {
