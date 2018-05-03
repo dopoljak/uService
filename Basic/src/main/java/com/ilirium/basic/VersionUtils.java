@@ -1,14 +1,9 @@
-package com.ilirium.webservice.utils;
+package com.ilirium.basic;
 
-import javax.servlet.ServletContext;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-import java.util.jar.Attributes;
-import java.util.jar.Manifest;
+import javax.servlet.*;
+import java.io.*;
+import java.util.*;
+import java.util.jar.*;
 
 /**
  * POM Version reader

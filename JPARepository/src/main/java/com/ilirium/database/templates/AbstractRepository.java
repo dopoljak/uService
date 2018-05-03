@@ -1,5 +1,6 @@
-package com.ilirium.database.commons;
+package com.ilirium.database.templates;
 
+import com.ilirium.database.request.*;
 import com.mysema.query.jpa.impl.JPAQuery;
 import com.mysema.query.types.EntityPath;
 
@@ -8,10 +9,6 @@ import javax.persistence.EntityManager;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-/**
- * @param <E>
- * @author dpoljak
- */
 public abstract class AbstractRepository<E> {
 
     @Inject

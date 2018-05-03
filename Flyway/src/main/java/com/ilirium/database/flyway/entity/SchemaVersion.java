@@ -1,28 +1,35 @@
-package com.ilirium.database.flyway;
+package com.ilirium.database.flyway.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.util.Date;
+import javax.persistence.*;
+import java.io.*;
+import java.util.*;
 
 @Entity
-@Table(name = "\"flyway_schema_history\"")
-public class SchemaVersion implements java.io.Serializable {
-
-    private String version;
-    private int installedRank;
-    private String description;
-    private String type;
-    private String script;
-    private Integer checksum;
-    private String installedBy;
-    private Date installedOn;
-    private int executionTime;
-    private boolean success;
+@Table(name = "FLYWAY_SCHEMA_HISTORY")
+public class SchemaVersion implements Serializable {
 
     @Id
-    @Column(name = "\"version\"")
+    @Column(name = "version")
+    private String version;
+    @Column(name = "installed_rank")
+    private int installedRank;
+    @Column(name = "description")
+    private String description;
+    @Column(name = "type")
+    private String type;
+    @Column(name = "script")
+    private String script;
+    @Column(name = "checksum")
+    private Integer checksum;
+    @Column(name = "installed_by")
+    private String installedBy;
+    @Column(name = "installed_on")
+    private Date installedOn;
+    @Column(name = "execution_time")
+    private int executionTime;
+    @Column(name = "success")
+    private boolean success;
+
     public String getVersion() {
         return this.version;
     }
@@ -31,7 +38,6 @@ public class SchemaVersion implements java.io.Serializable {
         this.version = version;
     }
 
-    @Column(name = "\"installed_rank\"")
     public int getInstalledRank() {
         return this.installedRank;
     }
@@ -40,7 +46,6 @@ public class SchemaVersion implements java.io.Serializable {
         this.installedRank = installedRank;
     }
 
-    @Column(name = "\"description\"")
     public String getDescription() {
         return this.description;
     }
@@ -49,7 +54,6 @@ public class SchemaVersion implements java.io.Serializable {
         this.description = description;
     }
 
-    @Column(name = "\"type\"")
     public String getType() {
         return this.type;
     }
@@ -58,7 +62,6 @@ public class SchemaVersion implements java.io.Serializable {
         this.type = type;
     }
 
-    @Column(name = "\"script\"")
     public String getScript() {
         return this.script;
     }
@@ -67,7 +70,6 @@ public class SchemaVersion implements java.io.Serializable {
         this.script = script;
     }
 
-    @Column(name = "\"checksum\"")
     public Integer getChecksum() {
         return this.checksum;
     }
@@ -76,7 +78,6 @@ public class SchemaVersion implements java.io.Serializable {
         this.checksum = checksum;
     }
 
-    @Column(name = "\"installed_by\"")
     public String getInstalledBy() {
         return this.installedBy;
     }
@@ -85,7 +86,6 @@ public class SchemaVersion implements java.io.Serializable {
         this.installedBy = installedBy;
     }
 
-    @Column(name = "\"installed_on\"")
     public Date getInstalledOn() {
         return this.installedOn;
     }
@@ -94,7 +94,6 @@ public class SchemaVersion implements java.io.Serializable {
         this.installedOn = installedOn;
     }
 
-    @Column(name = "\"execution_time\"")
     public int getExecutionTime() {
         return this.executionTime;
     }
@@ -103,7 +102,6 @@ public class SchemaVersion implements java.io.Serializable {
         this.executionTime = executionTime;
     }
 
-    @Column(name = "\"success\"")
     public boolean isSuccess() {
         return this.success;
     }

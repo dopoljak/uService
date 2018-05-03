@@ -1,8 +1,8 @@
-package com.ilirium.webservice.utils;
+package com.ilirium.basic;
 
-import java.text.SimpleDateFormat;
+import java.text.*;
 import java.time.*;
-import java.util.Date;
+import java.util.*;
 
 public class DateUtils {
 

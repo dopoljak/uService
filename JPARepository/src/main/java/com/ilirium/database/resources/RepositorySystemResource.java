@@ -1,8 +1,5 @@
 package com.ilirium.database.resources;
 
-import com.ilirium.database.flyway.SchemaVersion;
-import com.ilirium.database.flyway.SchemaVersionRepository;
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;

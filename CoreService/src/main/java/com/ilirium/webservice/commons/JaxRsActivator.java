@@ -1,18 +1,15 @@
 package com.ilirium.webservice.commons;
 
-import com.ilirium.database.resources.RepositorySystemResource;
-import com.ilirium.webservice.exceptions.JaxRSExceptionProvider;
-import com.ilirium.webservice.filter.CORSFilter;
-import com.ilirium.webservice.provider.ObjectMapperContextResolver;
-import com.ilirium.webservice.resources.CoreSystemResource;
-import io.swagger.jaxrs.config.BeanConfig;
-import org.slf4j.Logger;
+import io.swagger.jaxrs.config.*;
+import org.reflections.*;
+import org.slf4j.*;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.ws.rs.core.Application;
-import java.util.HashSet;
-import java.util.Set;
+import javax.annotation.*;
+import javax.inject.*;
+import javax.ws.rs.*;
+import javax.ws.rs.core.*;
+import javax.ws.rs.ext.Provider;
+import java.util.*;
 
 public abstract class JaxRsActivator extends Application {
 
@@ -24,45 +21,36 @@ public abstract class JaxRsActivator extends Application {
 
     //@Inject private BackgroundJobs backgroundJobs;
 
-//    @Override
-//    public Set<Class<?>> getClasses() {
-//        Set<Class<?>> classes = new HashSet<>();
-//        classes.add(CoreSystemResource.class);
-//        classes.add(RepositorySystemResource.class);
-//        classes.add(CORSFilter.class);
-//        classes.add(ObjectMapperContextResolver.class);
-//        classes.add(JaxRSExceptionProvider.class);
-//        // add swagger classes
-//        classes.add(io.swagger.jaxrs.listing.ApiListingResource.class);
-//        classes.add(io.swagger.jaxrs.listing.SwaggerSerializers.class);
-//        Set<Class<?>> additionalResources = getResources();
-//        LOGGER.info("Additional Resources = {}", additionalResources);
-//        classes.addAll(additionalResources);
-//        return classes;
-//    }
-//
-//    @PostConstruct
-//    public void postConstruct() {
-//        LOGGER.info(">> JaxRsActivator:postConstruct()");
-//
-//        BeanConfig beanConfig = new BeanConfig();
-//        beanConfig.setTitle("uService");
-//        beanConfig.setVersion("2.0");
-//        //beanConfig.setSchemes(new String[]{"http", "https"});
-//        beanConfig.setSchemes(new String[]{"https"});
-//        beanConfig.setHost(appConfiguration.getSwaggerHost());
-//        beanConfig.setBasePath(appConfiguration.getSwaggerBasePath());
-//        //beanConfig.setResourcePackage("com.ilirium.webservice.resources;" + getResourcePackage());
-//        beanConfig.setResourcePackage(getResourcePackage());
-//        beanConfig.setScan(false);
-//
-//        LOGGER.info("SwaggerHost     = {}", appConfiguration.getSwaggerHost());
-//        LOGGER.info("SwaggerBasePath = {}", appConfiguration.getSwaggerBasePath());
-//
-//        LOGGER.info("<< JaxRsActivator:postConstruct()");
-//    }
-//
-//    public abstract String getResourcePackage();
-//
-//    public abstract Set<Class<?>> getResources();
+    @Override
+    public Set<Class<?>> getClasses() {
+        Set<Class<?>> classes = new HashSet<>();
+        Reflections reflections = new Reflections("");
+        Set resourceClassSet = reflections.getTypesAnnotatedWith(Path.class);
+        Set providerClassSet = reflections.getTypesAnnotatedWith(Provider.class);
+        classes.addAll(resourceClassSet);
+        classes.addAll(providerClassSet);
+        return classes;
+    }
+
+    @PostConstruct
+    public void postConstruct() {
+        LOGGER.info(">> JaxRsActivator:postConstruct()");
+
+        BeanConfig beanConfig = new BeanConfig();
+        beanConfig.setTitle("uService");
+        beanConfig.setVersion("2.0");
+        beanConfig.setSchemes(new String[]{"https"});
+        beanConfig.setHost(appConfiguration.getSwaggerHost());
+        beanConfig.setBasePath(appConfiguration.getSwaggerBasePath());
+        beanConfig.setResourcePackage(getResourcePackage());
+        beanConfig.setScan(false);
+
+        LOGGER.info("SwaggerHost     = {}", appConfiguration.getSwaggerHost());
+        LOGGER.info("SwaggerBasePath = {}", appConfiguration.getSwaggerBasePath());
+
+        LOGGER.info("<< JaxRsActivator:postConstruct()");
+    }
+
+    public abstract String getResourcePackage();
+
 }

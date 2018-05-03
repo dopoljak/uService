@@ -3,9 +3,9 @@ package com.ilirium.uService.exampleservicejar.resource;
 import com.example.demo.client.dto.*;
 import com.example.demo.database.entities.*;
 import com.example.demo.database.repositories.*;
-import com.ilirium.database.commons.*;
+import com.ilirium.database.request.*;
+import com.ilirium.database.templates.*;
 import com.ilirium.uService.exampleservicejar.mappers.*;
-import com.ilirium.webservice.exceptions.*;
 import io.swagger.annotations.*;
 
 import javax.enterprise.context.*;
@@ -88,9 +88,9 @@ public class EndUserResource {
     @POST
     public EndUserDTO createEndUser(EndUserDTO endUserDTO) {
 
-        if (endUserDTO.getId() != null) {
-            throw new AppException(CommonException.ENDUSER_ID_MUST_BE_NULL);
-        }
+//        if (endUserDTO.getId() != null) {
+//            throw new AppException(CommonException.ENDUSER_ID_MUST_BE_NULL);
+//        }
 
         EndUser endUser = endUserMapper.map(endUserDTO);
         endUserRepository.persist(endUser);

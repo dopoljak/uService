@@ -1,6 +1,6 @@
 package com.ilirium.uservice.undertow.voidpack;
 
-import com.ilirium.database.commons.FlywayUtils;
+import com.ilirium.database.flyway.migration.FlywayMigrator;
 import com.ilirium.repository.sql2o.repository.commons.Sql2oSingleton;
 import com.ilirium.uservice.undertow.voidpack.commons.*;
 import com.ilirium.uservice.undertowserver.commons.Config;
@@ -105,7 +105,7 @@ public abstract class UndertowServer {
         createSingletons(config);
 
         // migrate flyway
-        FlywayUtils.flywayMigrate(Sql2oSingleton.INSTANCE.getSql2o().getDataSource());
+        FlywayMigrator.migrate(Sql2oSingleton.INSTANCE.getSql2o().getDataSource());
 
         // http server
         Undertow server = Undertow.builder()

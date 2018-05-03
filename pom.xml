@@ -18,6 +18,7 @@
         <module>Firebase</module>
         <module>Sql2oRepository</module>        
         <module>Flyway</module>
+        <module>Basic</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -26,8 +27,57 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+
+        <!--LIB VERSIONS-->
+        <version.javaee>7.0</version.javaee>
+        <version.slf4j>1.7.25</version.slf4j>
+        <version.flyway>5.0.7</version.flyway>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+
+            <!--JAVA EE-->
+            <dependency>
+                <groupId>javax</groupId>
+                <artifactId>javaee-api</artifactId>
+                <version>${version.javaee}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>javax</groupId>
+                <artifactId>javaee-web-api</artifactId>
+                <version>${version.javaee}</version>
+                <scope>provided</scope>
+            </dependency>
+            <!--JAVA EE-->
+
+            <!--REST-->
+            <!--REST-->
+
+            <!--DATABASE-->
+            <dependency>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-core</artifactId>
+                <version>5.0.7</version>
+                <scope>compile</scope>
+            </dependency>
+            <!--DATABASE-->
+
+            <!--TEST-->
+            <!--TEST-->
+
+            <!--LOGGING-->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${version.slf4j}</version>
+                <scope>provided</scope>
+            </dependency>
+            <!--LOGGING-->
+
+        </dependencies>
+    </dependencyManagement>
 
     <repositories>
         <repository>

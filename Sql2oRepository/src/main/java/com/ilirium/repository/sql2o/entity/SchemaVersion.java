@@ -3,10 +3,6 @@ package com.ilirium.repository.sql2o.entity;
 import com.ilirium.repository.sql2o.entity.commons.AbstractDO;
 import java.util.Date;
 
-/**
- *
- * @author dpoljak
- */
 public class SchemaVersion extends AbstractDO {
 
     private String version;

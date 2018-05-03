@@ -1,7 +1,7 @@
 package com.example.demo.database.repositories;
 
 import com.example.demo.database.entities.EndUser;
-import com.ilirium.database.commons.AbstractRepository;
+import com.ilirium.database.templates.AbstractRepository;
 import com.mysema.query.types.EntityPath;
 import java.util.Collection;
 import javax.enterprise.context.RequestScoped;

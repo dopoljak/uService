@@ -1,38 +1,32 @@
-package com.ilirium.database.commons;
+package com.ilirium.database.request;
 
+import com.ilirium.database.templates.*;
 import com.mysema.query.types.OrderSpecifier;
 
-/**
- *
- * @author dpoljak
- * @param <T>
- */
+import java.util.*;
+
 public abstract class OrderRequest<T> {
 
     //ASC or DESC
     protected Order order = Order.ASC;
     protected T sortColumn;
 
+    public OrderRequest(Order order) {
+        this.order = order;
+    }
+
     public enum Order {
         ASC, DESC;
 
         public static OrderRequest.Order resolve(String value) {
-            for (Order orderValue : Order.values()) {
-                if (orderValue.name().equalsIgnoreCase(value)) {
-                    return orderValue;
-                }
-            }
-            return Order.ASC;
+            Optional<Order> order = Arrays.stream(Order.values()).filter(orderValue -> orderValue.name().equalsIgnoreCase(value)).findFirst();
+            return order.orElse(Order.ASC);
         }
     }
 
     public final OrderSpecifier getSpecifier() {
-        for (Sortable sortColumnValue : getSortColumnValues()) {
-            if (sortColumn == sortColumnValue) {
-                return getSpecifierFromSortColumn(sortColumnValue);
-            }
-        }
-        return getSpecifierFromSortColumn(getDefaultSortColumn());
+        Sortable sortColumnValue = Arrays.stream(getSortColumnValues()).filter(scv -> scv == sortColumn).findFirst().orElse(getDefaultSortColumn());
+        return getSpecifierFromSortColumn(sortColumnValue);
     }
 
     private OrderSpecifier getSpecifierFromSortColumn(Sortable sortColumn) {

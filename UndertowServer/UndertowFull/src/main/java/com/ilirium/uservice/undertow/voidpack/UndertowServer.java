@@ -1,29 +1,24 @@
 package com.ilirium.uservice.undertow.voidpack;
 
-import com.ilirium.database.commons.FlywayUtils;
-import com.ilirium.uservice.undertowserver.commons.BenchmarkHandler;
-import com.ilirium.uservice.undertowserver.commons.Config;
-import com.ilirium.webservice.filter.LoggingFilter;
-import io.undertow.server.handlers.resource.ClassPathResourceManager;
-import org.jnp.server.NamingBeanImpl;
-import org.h2.jdbcx.JdbcDataSource;
-import com.arjuna.ats.jta.utils.JNDIManager;
-import io.undertow.Undertow;
-import io.undertow.servlet.Servlets;
-import io.undertow.servlet.api.DeploymentInfo;
-import org.jboss.resteasy.plugins.server.undertow.UndertowJaxrsServer;
-import org.jboss.resteasy.spi.ResteasyDeployment;
+import com.arjuna.ats.jta.utils.*;
+import com.ilirium.database.commons.*;
+import com.ilirium.database.flyway.migration.*;
+import com.ilirium.uservice.undertowserver.commons.*;
+import io.undertow.*;
+import io.undertow.server.handlers.resource.*;
+import io.undertow.servlet.*;
+import io.undertow.servlet.api.*;
+import org.h2.jdbcx.*;
+import org.jboss.resteasy.plugins.server.undertow.*;
+import org.jboss.resteasy.spi.*;
+import org.jnp.server.*;
 
 import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.servlet.DispatcherType;
-import javax.servlet.ServletException;
-import javax.sql.DataSource;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.core.Application;
-import javax.ws.rs.core.Response;
+import javax.naming.*;
+import javax.servlet.*;
+import javax.sql.*;
+import javax.ws.rs.client.*;
+import javax.ws.rs.core.*;
 
 
 /**
@@ -75,9 +70,6 @@ public class UndertowServer {
                         .setDeploymentName("MyApplication")
                         .addListeners(Servlets.listener(org.jboss.weld.environment.servlet.Listener.class))
                         //.addListeners(Servlets.listener(BackgroundJobs.class))
-                        // TODO: maybe implement SCAN filter classes ?
-                        .addFilter(Servlets.filter("LoggingFilter", LoggingFilter.class))
-                        .addFilterUrlMapping("LoggingFilter", "*", DispatcherType.REQUEST)
                         .addInitParameter("NodeId", String.valueOf("1"));
 
                 myServer.deploy(deploymentInfo);
@@ -153,7 +145,7 @@ public class UndertowServer {
 
 
     private void migrate() {
-        FlywayUtils.flywayMigrate(dataSource);
+        FlywayMigrator.migrate(dataSource);
     }
 
     public void stop() {

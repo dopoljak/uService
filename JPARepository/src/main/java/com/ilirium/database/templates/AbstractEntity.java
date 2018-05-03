@@ -1,4 +1,4 @@
-package com.ilirium.database.commons;
+package com.ilirium.database.templates;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -6,6 +6,7 @@ import java.util.Objects;
 
 public abstract class AbstractEntity implements Serializable {
 
+    // Implementing class SHOULD override sequence name
     protected final String sequenceName = "SEQ_DEFAULT";
 
     @Id

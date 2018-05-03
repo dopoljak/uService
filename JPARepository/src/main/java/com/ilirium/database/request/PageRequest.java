@@ -1,4 +1,4 @@
-package com.ilirium.database.commons;
+package com.ilirium.database.request;
 
 /**
  *

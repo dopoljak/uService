@@ -1,6 +1,6 @@
 package com.example.demo.database.entities;
 
-import com.ilirium.database.commons.AbstractEntity;
+import com.ilirium.database.templates.AbstractEntity;
 import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
