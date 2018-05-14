@@ -17,11 +17,16 @@
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.iLirium.uService</groupId>
+            <artifactId>Basic</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>javax</groupId>
-            <artifactId>javaee-web-api</artifactId>
-            <version>7.0</version>
-            <scope>provided</scope>
+            <artifactId>javaee-api</artifactId>
         </dependency>
         <dependency>
             <groupId>com.mysema.querydsl</groupId>

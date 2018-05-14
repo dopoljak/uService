@@ -54,7 +54,7 @@ public abstract class AbstractRepository<E> {
                 .from(getQClass())
                 .offset(pageRequest.getCalculatedOffset())
                 .limit(pageRequest.getLimit())
-                //.orderBy(orderRequest.getSpecifier())
+                .orderBy(orderRequest.getSpecifier())
                 .list(getQClass());
     }
 

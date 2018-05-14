@@ -1,12 +1,13 @@
 package com.ilirium.database.flyway.entity;
 
+import com.ilirium.basic.db.*;
+
 import javax.persistence.*;
-import java.io.*;
 import java.util.*;
 
 @Entity
 @Table(name = "FLYWAY_SCHEMA_HISTORY")
-public class SchemaVersion implements Serializable {
+public class FlywaySchemaVersion implements SchemaVersion {
 
     @Id
     @Column(name = "version")

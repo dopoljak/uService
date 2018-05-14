@@ -46,3 +46,4 @@ UndertowServer/UndertowCommons/target/
 Examples/LightExample/ExampleLightDatabase/target/
 
 *.log
+Basic/target/

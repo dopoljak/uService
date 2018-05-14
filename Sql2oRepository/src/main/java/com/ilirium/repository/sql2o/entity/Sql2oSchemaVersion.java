@@ -1,9 +1,10 @@
 package com.ilirium.repository.sql2o.entity;
 
-import com.ilirium.repository.sql2o.entity.commons.AbstractDO;
-import java.util.Date;
+import com.ilirium.basic.db.*;
 
-public class SchemaVersion extends AbstractDO {
+import java.util.*;
+
+public class Sql2oSchemaVersion implements SchemaVersion {
 
     private String version;
     private int installedRank;

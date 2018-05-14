@@ -24,7 +24,7 @@ public abstract class JaxRsActivator extends Application {
     @Override
     public Set<Class<?>> getClasses() {
         Set<Class<?>> classes = new HashSet<>();
-        Reflections reflections = new Reflections("");
+        Reflections reflections = new Reflections("com.ilirium");
         Set resourceClassSet = reflections.getTypesAnnotatedWith(Path.class);
         Set providerClassSet = reflections.getTypesAnnotatedWith(Provider.class);
         classes.addAll(resourceClassSet);
@@ -35,6 +35,15 @@ public abstract class JaxRsActivator extends Application {
     @PostConstruct
     public void postConstruct() {
         LOGGER.info(">> JaxRsActivator:postConstruct()");
+
+        configureSwagger();
+
+        LOGGER.info("<< JaxRsActivator:postConstruct()");
+    }
+
+    private void configureSwagger() {
+
+        LOGGER.info("Configuring Swagger...");
 
         BeanConfig beanConfig = new BeanConfig();
         beanConfig.setTitle("uService");
@@ -48,7 +57,8 @@ public abstract class JaxRsActivator extends Application {
         LOGGER.info("SwaggerHost     = {}", appConfiguration.getSwaggerHost());
         LOGGER.info("SwaggerBasePath = {}", appConfiguration.getSwaggerBasePath());
 
-        LOGGER.info("<< JaxRsActivator:postConstruct()");
+        LOGGER.info("... Swagger configured.");
+
     }
 
     public abstract String getResourcePackage();

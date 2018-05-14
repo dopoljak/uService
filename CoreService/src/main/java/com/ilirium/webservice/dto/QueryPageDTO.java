@@ -4,8 +4,8 @@ import javax.ws.rs.QueryParam;
 
 public class QueryPageDTO {
 
-    @QueryParam(value = "offset")
-    private Integer offset;
+//    @QueryParam(value = "offset")
+//    private Integer offset;
 
     @QueryParam(value = "limit")
     private Integer limit;
@@ -13,13 +13,13 @@ public class QueryPageDTO {
     @QueryParam(value = "page")
     Integer page;
 
-    public Integer getOffset() {
-        return offset;
-    }
-
-    public void setOffset(Integer offset) {
-        this.offset = offset;
-    }
+//    public Integer getOffset() {
+//        return offset;
+//    }
+//
+//    public void setOffset(Integer offset) {
+//        this.offset = offset;
+//    }
 
     public Integer getLimit() {
         return limit;

@@ -35,7 +35,7 @@ public class VersionUtils {
                 map.put(String.valueOf(entry.getKey()), String.valueOf(entry.getValue()));
             }
         } catch (IOException ex) {
-            LOGGER.error("", ex);
+            LOGGER.error("Error reading manifest file", ex);
         }
         return map;
     }

@@ -7,11 +7,6 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-//import static com.ilirium.database.commons.DBMigrationInvoker.RESOURCE_NAME_DATASOURCE;
-
-/**
- * @author dpoljak
- */
 @ApplicationScoped
 public class H2DatabaseBackup {
 
@@ -21,6 +16,7 @@ public class H2DatabaseBackup {
     //@Resource(mappedName = RESOURCE_NAME_DATASOURCE)
     //private DataSource dataSource;
 
+    // TODO make use of in system resource or delete
     public void makeBackupH2(DataSource dataSource) {
         try {
             String SQL = String.format("BACKUP TO 'database_backup\\h2_backup_%s.zip'", SIMPLE_DATE_FORMAT.format(new Date()));

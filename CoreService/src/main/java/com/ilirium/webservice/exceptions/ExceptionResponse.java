@@ -8,7 +8,7 @@ public class ExceptionResponse {
     private String correlation_id;
     private Integer http_code;
     private String http_message;
-    //TODO stack trace data should never be sent
+    //TODO stack trace data may only be shown in test modes, how to manage that?!
 //    private String error_details;
 
     public ExceptionResponse() {}

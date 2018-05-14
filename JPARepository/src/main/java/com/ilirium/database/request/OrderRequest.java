@@ -15,6 +15,15 @@ public abstract class OrderRequest<T> {
         this.order = order;
     }
 
+    public OrderRequest(Order order, T sortColumn) {
+        this.order = order;
+        this.sortColumn = sortColumn;
+    }
+
+    public void setSortColumn(T sortColumn) {
+        this.sortColumn = sortColumn;
+    }
+
     public enum Order {
         ASC, DESC;
 
@@ -24,6 +33,10 @@ public abstract class OrderRequest<T> {
         }
     }
 
+    /**
+     * Get QueryDSL {@link OrderSpecifier} based on defined sort column.
+     * @return
+     */
     public final OrderSpecifier getSpecifier() {
         Sortable sortColumnValue = Arrays.stream(getSortColumnValues()).filter(scv -> scv == sortColumn).findFirst().orElse(getDefaultSortColumn());
         return getSpecifierFromSortColumn(sortColumnValue);

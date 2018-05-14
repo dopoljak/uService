@@ -16,7 +16,7 @@
 
         <dependency>
             <groupId>com.iLirium.uService</groupId>
-            <artifactId>Basic</artifactId>
+            <artifactId>JPARepository</artifactId>
             <version>${project.version}</version>
         </dependency>
 
