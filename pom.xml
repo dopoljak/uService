@@ -19,6 +19,7 @@
         <module>Sql2oRepository</module>        
         <module>Flyway</module>
         <module>Basic</module>
+        <module>RestClient</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -52,6 +53,14 @@
             </dependency>
             <!--JAVA EE-->
 
+            <!--CONFIG-->
+            <dependency>
+                <groupId>com.typesafe</groupId>
+                <artifactId>config</artifactId>
+                <version>1.3.3</version>
+            </dependency>
+            <!--CONFIG-->
+
             <!--REST-->
             <!--REST-->
 
@@ -60,6 +69,12 @@
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-core</artifactId>
                 <version>5.0.7</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.zaxxer</groupId>
+                <artifactId>HikariCP</artifactId>
+                <version>3.1.0</version>
                 <scope>compile</scope>
             </dependency>
             <!--DATABASE-->

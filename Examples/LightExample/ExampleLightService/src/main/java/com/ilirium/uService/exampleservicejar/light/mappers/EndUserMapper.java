@@ -12,7 +12,7 @@ import java.util.Collection;
  */
 public class EndUserMapper {
 
-    public static Collection<EndUserDTO> map(Collection<EndUser> entities) {
+    public Collection<EndUserDTO> map(Collection<EndUser> entities) {
         Collection<EndUserDTO> dtos = new ArrayList<>(entities.size());
         for (EndUser e : entities) {
             EndUserDTO dto = new EndUserDTO();

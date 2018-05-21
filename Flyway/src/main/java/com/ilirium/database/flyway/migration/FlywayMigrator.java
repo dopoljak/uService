@@ -1,5 +1,6 @@
 package com.ilirium.database.flyway.migration;
 
+import com.ilirium.basic.db.*;
 import org.flywaydb.core.*;
 import org.slf4j.*;
 
@@ -8,7 +9,7 @@ import javax.inject.*;
 import javax.sql.*;
 import java.sql.*;
 
-public class FlywayMigrator {
+public class FlywayMigrator implements DatabaseMigrator {
 
     @Inject
     private Logger LOGGER;
