@@ -1,4 +1,4 @@
-package com.ilirium.uservice.undertow.voidpack.base;
+package com.ilirium.uservice.undertow.voidserver.base;
 
 import io.undertow.server.HttpServerExchange;
 

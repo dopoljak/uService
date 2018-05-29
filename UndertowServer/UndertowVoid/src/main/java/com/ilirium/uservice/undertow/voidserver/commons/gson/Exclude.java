@@ -1,4 +1,4 @@
-package com.ilirium.uservice.undertow.voidpack.commons.gson;
+package com.ilirium.uservice.undertow.voidserver.commons.gson;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

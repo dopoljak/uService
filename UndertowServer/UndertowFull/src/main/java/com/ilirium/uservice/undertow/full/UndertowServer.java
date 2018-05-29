@@ -1,4 +1,4 @@
-package com.ilirium.uservice.undertow.voidpack;
+package com.ilirium.uservice.undertow.full;
 
 import com.ilirium.database.commons.FlywayUtils;
 import com.ilirium.uservice.undertowserver.commons.BaseParameters;

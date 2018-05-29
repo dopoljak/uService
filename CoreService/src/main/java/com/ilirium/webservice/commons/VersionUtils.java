@@ -21,6 +21,11 @@ public class VersionUtils {
     public static final String META_INF_MANIFEST_LOCATION = "/META-INF/MANIFEST.MF";
 
     public static Map<String, String> readWarManifest(ServletContext context) {
+        if(context == null) {
+            LOGGER.error("ServletContext is null!");
+            return Collections.EMPTY_MAP;
+        }
+
         try {
             try (InputStream is = context.getResourceAsStream(META_INF_MANIFEST_LOCATION)) {
                 return readManifest(is);
@@ -33,6 +38,10 @@ public class VersionUtils {
 
     public static Map<String, String> readManifest(InputStream inputStream) {
         Map<String, String> map = new HashMap<>();
+        if(inputStream == null) {
+            LOGGER.error("InputStream is null!");
+            return map;
+        }
         try {
             Manifest manifest = new Manifest(inputStream);
             Attributes attributes = manifest.getMainAttributes();

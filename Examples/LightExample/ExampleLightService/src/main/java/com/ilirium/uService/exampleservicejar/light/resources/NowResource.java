@@ -1,6 +1,6 @@
 package com.ilirium.uService.exampleservicejar.light.resources;
 
-import com.ilirium.uservice.undertow.voidpack.base.AbstractResponseResource;
+import com.ilirium.uservice.undertow.voidserver.base.AbstractResponseResource;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.Methods;
 

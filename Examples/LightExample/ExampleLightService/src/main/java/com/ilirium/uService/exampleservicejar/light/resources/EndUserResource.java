@@ -5,7 +5,7 @@ import com.example.demo.database.repositories.EndUserRepository;
 import com.ilirium.repository.sql2o.repository.commons.Pagination;
 import com.ilirium.uService.exampleservicejar.light.dtos.EndUserDTO;
 import com.ilirium.uService.exampleservicejar.light.mappers.EndUserMapper;
-import com.ilirium.uservice.undertow.voidpack.base.AbstractResponseResource;
+import com.ilirium.uservice.undertow.voidserver.base.AbstractResponseResource;
 import io.undertow.server.HttpServerExchange;
 
 import java.util.Collection;

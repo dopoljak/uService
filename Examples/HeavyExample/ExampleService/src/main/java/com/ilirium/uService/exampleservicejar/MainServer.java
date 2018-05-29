@@ -1,7 +1,7 @@
 package com.ilirium.uService.exampleservicejar;
 
 import com.ilirium.uService.exampleservicejar.initialization.Activator;
-import com.ilirium.uservice.undertow.voidpack.UndertowServer;
+import com.ilirium.uservice.undertow.full.UndertowServer;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 

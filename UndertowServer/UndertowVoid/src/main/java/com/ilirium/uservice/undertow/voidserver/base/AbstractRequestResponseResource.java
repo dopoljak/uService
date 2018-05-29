@@ -1,7 +1,8 @@
-package com.ilirium.uservice.undertow.voidpack.base;
+package com.ilirium.uservice.undertow.voidserver.base;
 
 import com.ilirium.repository.sql2o.repository.commons.Pagination;
-import com.ilirium.uservice.undertow.voidpack.commons.*;
+import com.ilirium.uservice.undertow.voidserver.*;
+import com.ilirium.uservice.undertow.voidserver.commons.*;
 import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.HeaderValues;

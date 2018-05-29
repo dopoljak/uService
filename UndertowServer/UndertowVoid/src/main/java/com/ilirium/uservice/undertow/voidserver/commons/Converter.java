@@ -1,7 +1,7 @@
-package com.ilirium.uservice.undertow.voidpack.commons;
+package com.ilirium.uservice.undertow.voidserver.commons;
 
 import com.google.gson.GsonBuilder;
-import com.ilirium.uservice.undertow.voidpack.commons.gson.AppExceptionGSONSerializier;
+import com.ilirium.uservice.undertow.voidserver.commons.gson.AppExceptionGSONSerializier;
 
 /**
  * @author DoDo

@@ -1,7 +1,7 @@
 package com.ilirium.uService.exampleservicejar.light.resources;
 
-import com.ilirium.uservice.undertow.voidpack.commons.SystemInfo;
-import com.ilirium.uservice.undertow.voidpack.base.AbstractResponseResource;
+import com.ilirium.uservice.undertow.voidserver.commons.SystemInfo;
+import com.ilirium.uservice.undertow.voidserver.base.AbstractResponseResource;
 import io.undertow.server.HttpServerExchange;
 
 /**

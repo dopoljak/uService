@@ -1,13 +1,11 @@
 package com.ilirium.webservice.resources;
 
-import com.ilirium.webservice.commons.AppConfiguration;
 import com.ilirium.webservice.commons.DateUtils;
 import com.ilirium.webservice.commons.VersionUtils;
 import com.ilirium.webservice.filters.LoggingFilter;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.transaction.Transactional;
 import javax.ws.rs.GET;
@@ -58,8 +56,7 @@ public class CoreSystemResource {
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(CoreSystemResource.class);
     private static final long START_TIME = System.currentTimeMillis();
 
-    @Inject
-    private AppConfiguration appConfiguration;
+    //@Inject private AppConfiguration appConfiguration;
 
     @Context
     private ServletContext servletContext;

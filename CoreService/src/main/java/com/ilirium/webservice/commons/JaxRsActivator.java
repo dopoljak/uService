@@ -17,13 +17,12 @@ public abstract class JaxRsActivator extends Application {
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(JaxRsActivator.class);
 
-    @Inject
-    private AppConfiguration appConfiguration;
-
+    //@Inject private AppConfiguration appConfiguration;
     //@Inject private BackgroundJobs backgroundJobs;
 
     @Override
     public Set<Class<?>> getClasses() {
+
         Set<Class<?>> classes = new HashSet<>();
         classes.add(CoreSystemResource.class);
         classes.add(RepositorySystemResource.class);
@@ -48,14 +47,14 @@ public abstract class JaxRsActivator extends Application {
         beanConfig.setVersion("2.0");
         //beanConfig.setSchemes(new String[]{"http", "https"});
         beanConfig.setSchemes(new String[]{"https"});
-        beanConfig.setHost(appConfiguration.getSwaggerHost());
-        beanConfig.setBasePath(appConfiguration.getSwaggerBasePath());
+        beanConfig.setHost(getSwaggerHost());
+        beanConfig.setBasePath(getSwaggerBasePath());
         //beanConfig.setResourcePackage("com.ilirium.webservice.resources;" + getResourcePackage());
         beanConfig.setResourcePackage(getResourcePackage());
         beanConfig.setScan(false);
 
-        LOGGER.info("SwaggerHost     = {}", appConfiguration.getSwaggerHost());
-        LOGGER.info("SwaggerBasePath = {}", appConfiguration.getSwaggerBasePath());
+        LOGGER.info("SwaggerHost     = {}", getSwaggerHost());
+        LOGGER.info("SwaggerBasePath = {}", getSwaggerBasePath());
 
         LOGGER.info("<< JaxRsActivator:postConstruct()");
     }
@@ -63,4 +62,8 @@ public abstract class JaxRsActivator extends Application {
     public abstract String getResourcePackage();
 
     public abstract Set<Class<?>> getResources();
+
+    public abstract String getSwaggerHost();
+
+    public abstract String getSwaggerBasePath();
 }

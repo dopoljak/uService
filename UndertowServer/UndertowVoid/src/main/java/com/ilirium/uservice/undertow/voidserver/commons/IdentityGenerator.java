@@ -1,4 +1,4 @@
-package com.ilirium.uservice.undertow.voidpack.commons;
+package com.ilirium.uservice.undertow.voidserver.commons;
 
 import org.slf4j.MDC;
 

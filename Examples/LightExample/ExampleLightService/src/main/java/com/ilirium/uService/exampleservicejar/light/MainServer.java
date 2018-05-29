@@ -4,7 +4,7 @@ import com.ilirium.uService.exampleservicejar.light.resources.DateNowResource;
 import com.ilirium.uService.exampleservicejar.light.resources.EndUserResource;
 import com.ilirium.uService.exampleservicejar.light.resources.NowResource;
 import com.ilirium.uService.exampleservicejar.light.resources.SystemResource;
-import com.ilirium.uservice.undertow.voidpack.UndertowServer;
+import com.ilirium.uservice.undertow.voidserver.UndertowServer;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import io.undertow.Handlers;
