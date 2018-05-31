@@ -10,6 +10,7 @@ public class FlywayUtils {
         try {
             Flyway flyway = new Flyway();
             flyway.setDataSource(dataSource);
+            //flyway.setBaselineOnMigrate(true);
             flyway.migrate();
         } catch (Exception e) {
             e.printStackTrace();

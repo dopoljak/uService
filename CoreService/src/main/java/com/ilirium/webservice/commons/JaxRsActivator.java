@@ -43,10 +43,10 @@ public abstract class JaxRsActivator extends Application {
         LOGGER.info(">> JaxRsActivator:postConstruct()");
 
         BeanConfig beanConfig = new BeanConfig();
-        beanConfig.setTitle("uService");
+        beanConfig.setTitle(getSwaggerServiceName());
         beanConfig.setVersion("2.0");
-        //beanConfig.setSchemes(new String[]{"http", "https"});
-        beanConfig.setSchemes(new String[]{"https"});
+        beanConfig.setSchemes(new String[]{"http", "https"});
+        //beanConfig.setSchemes(new String[]{"https"});
         beanConfig.setHost(getSwaggerHost());
         beanConfig.setBasePath(getSwaggerBasePath());
         //beanConfig.setResourcePackage("com.ilirium.webservice.resources;" + getResourcePackage());
@@ -62,6 +62,9 @@ public abstract class JaxRsActivator extends Application {
     public abstract String getResourcePackage();
 
     public abstract Set<Class<?>> getResources();
+
+
+    public abstract String getSwaggerServiceName();
 
     public abstract String getSwaggerHost();
 

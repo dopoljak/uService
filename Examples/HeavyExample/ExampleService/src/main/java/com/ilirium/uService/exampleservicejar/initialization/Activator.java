@@ -32,6 +32,11 @@ public class Activator extends com.ilirium.webservice.commons.JaxRsActivator {
     }
 
     @Override
+    public String getSwaggerServiceName() {
+        return "Test";
+    }
+
+    @Override
     public String getSwaggerHost() {
         return config.getString(swagger_host);
     }

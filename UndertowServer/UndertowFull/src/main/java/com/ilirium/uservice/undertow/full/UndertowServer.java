@@ -14,6 +14,7 @@ import io.undertow.servlet.Servlets;
 import io.undertow.servlet.api.DeploymentInfo;
 import org.jboss.resteasy.plugins.server.undertow.UndertowJaxrsServer;
 import org.jboss.resteasy.spi.ResteasyDeployment;
+import org.postgresql.ds.PGPoolingDataSource;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -119,13 +120,40 @@ public class UndertowServer {
     }
 
     private void createDataSource(BaseParameters baseParameters) throws NamingException {
-        JdbcDataSource jdbcDataSource = new JdbcDataSource();
-        //"jdbc:h2:mem:test;MODE=Oracle;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE"
-        //"jdbc:h2:file:./h2_database;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE"
-        jdbcDataSource.setUrl(baseParameters.getDatabaseUrl());
-        jdbcDataSource.setUser(baseParameters.getDatabaseUsername());
-        jdbcDataSource.setPassword(baseParameters.getDatabasePassword());
-        this.dataSource = jdbcDataSource;
+
+        if(baseParameters.getDatabaseUrl().toLowerCase().contains(":h2:")) {
+            System.out.println("h2 detected ...");
+
+            JdbcDataSource jdbcDataSource = new JdbcDataSource();
+            //"jdbc:h2:mem:test;MODE=Oracle;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE"
+            //"jdbc:h2:file:./h2_database;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE"
+            jdbcDataSource.setUrl(baseParameters.getDatabaseUrl());
+            jdbcDataSource.setUser(baseParameters.getDatabaseUsername());
+            jdbcDataSource.setPassword(baseParameters.getDatabasePassword());
+            this.dataSource = jdbcDataSource;
+        }
+        if(baseParameters.getDatabaseUrl().toLowerCase().contains(":postgresql:")) {
+
+            /*
+
+            https://stackoverflow.com/questions/9287052/how-to-parse-a-jdbc-url-to-get-hostname-port-etc
+
+            */
+
+            // databaseUrl=jdbc:postgresql://localhost:5432/postgres_db01
+            System.out.println("postgresql detected ...");
+            PGPoolingDataSource source = new PGPoolingDataSource();
+            source.setDataSourceName("A Data Source");
+            source.setServerName("localhost");
+            source.setPortNumber(5432);
+            source.setDatabaseName("postgres_db01");
+            source.setUser(baseParameters.getDatabaseUsername());
+            source.setPassword(baseParameters.getDatabasePassword());
+            source.setMaxConnections(10);
+            new InitialContext().rebind("DataSource", source);
+            this.dataSource = source;
+        }
+
     }
 
     private void createDataSourceContext(String datasourceName) throws NamingException {
