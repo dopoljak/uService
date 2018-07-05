@@ -53,10 +53,24 @@ public class LoggingFilter implements Filter {
 
         LOGGER.info(">> REQ: Method = {}, Path = {}, Query = {}, IP = {}:{}", httpRequest.getMethod(), httpRequest.getRequestURI(), httpRequest.getQueryString(), httpRequest.getRemoteAddr(), httpRequest.getRemotePort());
 
-        filterChain.doFilter(servletRequest, servletResponse);
+        if(httpRequest.getMethod().equalsIgnoreCase("OPTIONS")) {
+            LOGGER.info("OPTIONS REQUEST, setting status to 200 ....");
+            addCorsHeader(httpResponse);
+            httpResponse.setStatus(HttpServletResponse.SC_OK);
+        }
+        else {
+            filterChain.doFilter(servletRequest, servletResponse);
+        }
 
         LOGGER.info("<< RES: Code = {}, status = {}, total execution time [{} ms]", httpResponse.getStatus(), Status.fromStatusCode(httpResponse.getStatus()), stopWatch.elapsed(TimeUnit.MILLISECONDS));
+    }
 
+    private void addCorsHeader(HttpServletResponse response){
+        //TODO: externalize the Allow-Origin
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+        response.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        response.addHeader("Access-Control-Max-Age", "-1");
     }
 
     void resolveCorrelationId(HttpServletRequest request) {
