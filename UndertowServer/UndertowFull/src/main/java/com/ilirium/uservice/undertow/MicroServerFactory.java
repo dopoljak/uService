@@ -1,8 +1,8 @@
 package com.ilirium.uservice.undertow;
 
 import com.arjuna.ats.jta.utils.*;
+import com.ilirium.basic.config.*;
 import com.ilirium.uservice.undertowserver.commons.*;
-import com.ilirium.webservice.config.*;
 import com.typesafe.config.*;
 import io.undertow.servlet.api.*;
 

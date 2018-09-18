@@ -1,4 +1,4 @@
-package com.ilirium.basic;
+package com.ilirium.basicee;
 
 import org.slf4j.*;
 

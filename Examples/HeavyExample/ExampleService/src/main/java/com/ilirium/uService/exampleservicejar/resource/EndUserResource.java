@@ -55,7 +55,7 @@ public class EndUserResource {
 
         LOGGER.info(">>  get(offset = {}, limit = {}, page = {})", offset, limit, page);
 
-        PageRequest pageRequest = PageRequest.defaultIfWrongConf(offset, limit, page);
+        PageRequest pageRequest = new PageRequest().defaultIfWrongConf(offset, limit, page);
         LOGGER.info("CalculatedOffset = {}, Limit = {}", pageRequest.getCalculatedOffset(), pageRequest.getLimit());
 
         Collection<EndUser> endUsers = endUserRepository.findPagedOrdered(pageRequest, null);

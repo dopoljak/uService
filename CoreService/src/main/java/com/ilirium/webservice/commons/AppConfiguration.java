@@ -1,6 +1,7 @@
 package com.ilirium.webservice.commons;
 
 import com.ilirium.basic.*;
+import com.ilirium.basic.config.*;
 import org.slf4j.*;
 
 import javax.annotation.*;

@@ -1,8 +1,8 @@
 package com.ilirium.uservice.undertow;
 
 
+import com.ilirium.basic.config.*;
 import com.ilirium.basic.db.*;
-import com.ilirium.webservice.config.*;
 import com.zaxxer.hikari.*;
 import io.undertow.*;
 import io.undertow.server.handlers.resource.*;

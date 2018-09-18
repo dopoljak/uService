@@ -1,15 +1,13 @@
-package com.ilirium.basic;
+package com.ilirium.basic.config;
 
 import org.slf4j.*;
 
-import javax.inject.*;
 import java.io.*;
 import java.util.*;
 
 public class ConfigUtils {
 
-    @Inject
-    private Logger LOGGER;
+    private Logger LOGGER = LoggerFactory.getLogger(ConfigUtils.class);
 
     public Properties loadFromFile(String location) {
         LOGGER.info("Loading properties from file: {}", location);

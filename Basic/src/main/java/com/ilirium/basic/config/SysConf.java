@@ -1,8 +1,5 @@
-package com.ilirium.webservice.config;
+package com.ilirium.basic.config;
 
-import javax.enterprise.context.*;
-
-@ApplicationScoped
 public class SysConf extends Conf {
 
     public static final String appPath = "app.path";

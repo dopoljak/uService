@@ -1,15 +1,13 @@
-package com.ilirium.webservice.config;
+package com.ilirium.basic.config;
 
 import com.typesafe.config.*;
 import org.slf4j.*;
 
-import javax.inject.*;
 import java.util.*;
 
 public abstract class Conf {
 
-    @Inject
-    private Logger LOGGER;
+    private Logger LOGGER = LoggerFactory.getLogger(Conf.class);
 
     protected Config config;
 

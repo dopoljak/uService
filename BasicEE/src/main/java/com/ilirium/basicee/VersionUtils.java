@@ -1,4 +1,4 @@
-package com.ilirium.basic;
+package com.ilirium.basicee;
 
 import javax.servlet.*;
 import java.io.*;

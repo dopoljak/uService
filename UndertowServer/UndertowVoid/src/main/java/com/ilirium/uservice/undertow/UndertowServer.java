@@ -1,16 +1,15 @@
 package com.ilirium.uservice.undertow;
 
-import com.ilirium.database.flyway.migration.FlywayMigrator;
-import com.ilirium.repository.sql2o.repository.commons.Sql2oSingleton;
+import com.ilirium.basic.config.*;
+import com.ilirium.repository.sql2o.repository.commons.*;
 import com.ilirium.uservice.undertow.commons.*;
-import com.typesafe.config.Config;
-import io.undertow.Undertow;
-import io.undertow.UndertowOptions;
-import io.undertow.server.HttpHandler;
-import io.undertow.server.handlers.RequestDumpingHandler;
-import org.sql2o.Sql2o;
+import com.typesafe.config.*;
+import io.undertow.*;
+import io.undertow.server.*;
+import io.undertow.server.handlers.*;
+import org.sql2o.*;
 
-import java.io.IOException;
+import java.io.*;
 
 
 /**
@@ -26,7 +25,7 @@ public abstract class UndertowServer {
 
     protected abstract HttpHandler createHandlers();
 
-    void createSingletons(BaseParameters config) {
+    void createSingletons(SysConf config) {
         Sql2oSingleton.INSTANCE.set(new Sql2o(config.getDatabaseUrl(), config.getDatabaseUsername(), config.getDatabasePassword()));
     }
 
@@ -66,13 +65,14 @@ public abstract class UndertowServer {
         LOGGER.info("Starting Undertow server, buildDate = '{}' ...", buildDate);
         System.out.println("Starting Undertow server buildDate = '" + buildDate + "' ...");
 
-        BaseParameters baseParameters = new BaseParameters(config);
+        SysConf baseParameters = new SysConf();
+        baseParameters.setConfig(config);
 
         // singletons
         createSingletons(baseParameters);
 
         // migrate flyway
-        FlywayMigrator.migrate(Sql2oSingleton.INSTANCE.getSql2o().getDataSource());
+//        FlywayMigrator.migrate(Sql2oSingleton.INSTANCE.getSql2o().getDataSource());
 
         // http server
         Undertow server = Undertow.builder()
@@ -80,7 +80,7 @@ public abstract class UndertowServer {
                 .addHttpListener(baseParameters.getPort(), "0.0.0.0")
                 .setIoThreads(Runtime.getRuntime().availableProcessors() * 2)
                 .setWorkerThreads(2)
-                .setHandler(baseParameters.isDumpRequest() ? new RequestDumpingHandler(createHandlers()) : createHandlers())
+                .setHandler(baseParameters.getDumpRequest() ? new RequestDumpingHandler(createHandlers()) : createHandlers())
                 .build();
         server.start();
 

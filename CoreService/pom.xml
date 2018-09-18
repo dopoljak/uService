@@ -18,7 +18,7 @@
 
         <dependency>
             <groupId>com.iLirium.uService</groupId>
-            <artifactId>Basic</artifactId>
+            <artifactId>BasicEE</artifactId>
             <version>${project.version}</version>
         </dependency>
 
@@ -32,10 +32,6 @@
                     <artifactId>jsr311-api</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.typesafe</groupId>
-            <artifactId>config</artifactId>
         </dependency>
 
         <dependency>

@@ -20,6 +20,7 @@
         <module>Flyway</module>
         <module>Basic</module>
         <module>RestClient</module>
+        <module>BasicEE</module>
     </modules>
 
     <packaging>pom</packaging>
