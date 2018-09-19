@@ -1,9 +1,8 @@
 package com.ilirium.uService.exampleservicejar;
 
-import com.ilirium.uService.exampleservicejar.initialization.Activator;
-import com.ilirium.uservice.undertow.MicroServer;
-import com.typesafe.config.Config;
-import com.typesafe.config.ConfigFactory;
+import com.ilirium.uService.exampleservicejar.initialization.*;
+import com.ilirium.uservice.undertow.*;
+import com.typesafe.config.*;
 
 public class MainServer {
 
@@ -31,6 +30,7 @@ public class MainServer {
         */
 
         Config config = ConfigFactory.load();
-        MicroServer server = MicroServer.createStarted(MainServer.class.getClassLoader(), Activator.class, config);
+//        new MicroServer(sysConf).createDeployment("api", Activator.class, MainServer.class.getClassLoader());
+        MicroServerFactory.createStarted(MainServer.class.getClassLoader(), Activator.class, config);
     }
 }

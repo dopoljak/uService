@@ -2,6 +2,7 @@ package com.ilirium.webservice.resources;
 
 import com.ilirium.basic.*;
 import com.ilirium.basic.db.*;
+import com.ilirium.basicee.*;
 import com.ilirium.webservice.commons.*;
 import com.ilirium.webservice.filter.*;
 import io.swagger.annotations.*;

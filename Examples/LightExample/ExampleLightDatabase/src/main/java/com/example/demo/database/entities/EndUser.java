@@ -1,8 +1,6 @@
 package com.example.demo.database.entities;
 
-import com.ilirium.repository.sql2o.entity.commons.AbstractDO;
-
-public class EndUser extends AbstractDO {
+public class EndUser {
 
     private Long id;
     private String username;
